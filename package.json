@@ -9,8 +9,7 @@
     "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "prod": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "cross-env NODE_ENV=test concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
-    "deploy": "pm2 deploy ecosystem.config.js production",
-    "lint": "eslint . --ext .ts"
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "repository": {
     "type": "git",
@@ -45,8 +44,25 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.0",
     "prettier": "^2.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --check",
+      "eslint"
+    ],
+    "*.{html,css,less,ejs}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
