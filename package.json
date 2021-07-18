@@ -10,7 +10,8 @@
     "prod": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "cross-env NODE_ENV=test concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "deploy": "pm2 deploy ecosystem.config.js production",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -49,15 +50,8 @@
     "lint-staged": "^11.0.1",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.0",
-    "prettier": "^2.3.2"
-  },
-  "husky": {
-    "hooks": {
-      "applypatch-msg": "echo \"[Husky] applypatch-commit\"",
-      "pre-applypatch": "echo \"[Husky] pre-pre\"",
-      "post-applypatch": "echo \"[Husky] pre-post\"",
-      "pre-commit": "echo \"[Husky] pre-commit\""
-    }
+    "prettier": "^2.3.2",
+    "husky": "^7.0.0"
   },
   "lint-staged": {
     "*.ts": [
