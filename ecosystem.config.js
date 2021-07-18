@@ -2,12 +2,12 @@ module.exports = {
     apps: [{
         name: 'BackendBill',
         script: 'dist/index.js',
-        // env: {
-        //     NODE_ENV: "development"
-        // },
-        // env_production: {
-        //     NODE_ENV: "production"
-        // },
+        env: {
+            NODE_ENV: "development"
+        },
+        env_production: {
+            NODE_ENV: "production"
+        },
         // emv_test:{
         //     NODE_ENV: "test"
         // }
