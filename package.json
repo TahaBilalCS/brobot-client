@@ -2,11 +2,12 @@
   "name": "backendbill",
   "version": "21.7.0",
   "description": "Running on AWS EC2 instance for api and bouncer",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "restart": "pm2 startOrRestart ecosystem.config.js",
-    "deploy": "pm2 deploy ecosystem.config.js production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=development concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
+    "prod": "cross-env NODE_ENV=production concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "cross-env NODE_ENV=test concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
+    "deploy": "rimraf dist && tsc && pm2 deploy ecosystem.config.js production"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,20 @@
   },
   "homepage": "https://github.com/TahaBilalCS/BackendBill#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@types/body-parser": "^1.19.1",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.3.3",
+    "body-parser": "^1.19.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12",
     "pm2": "^5.1.0"
   }
 }
