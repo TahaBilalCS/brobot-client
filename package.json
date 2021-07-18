@@ -1,0 +1,22 @@
+{
+  "name": "backendbill",
+  "version": "21.7.0",
+  "description": "Running on AWS EC2 instance for api and bouncer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TahaBilalCS/BackendBill.git"
+  },
+  "author": "Brother Bill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TahaBilalCS/BackendBill/issues"
+  },
+  "homepage": "https://github.com/TahaBilalCS/BackendBill#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
