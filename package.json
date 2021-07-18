@@ -59,6 +59,7 @@
   "lint-staged": {
     "*.{js,ts}": [
       "eslint",
+      "./node_modules/.bin/eslint .",
       "git add"
     ],
     "*.{html,css,less,ejs}": [
