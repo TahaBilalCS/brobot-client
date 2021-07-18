@@ -23,6 +23,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
 
-// const app = express()
+// const app = express()console.log()
 // app.use(express.static('public'))
 // app.listen(3000, () => console.log('Server running on portsss 3000'))
