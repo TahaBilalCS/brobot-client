@@ -4,9 +4,11 @@
   "description": "Running on AWS EC2 instance for api and bouncer",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
-    "prod": "cross-env NODE_ENV=production concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
-    "test": "cross-env NODE_ENV=test concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
+    "build": "rimraf dist && tsc",
+    "preserve": "npm run build",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "prod": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "cross-env NODE_ENV=test concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "repository": {
