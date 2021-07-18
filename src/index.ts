@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req: Request, res: Response) => {
-  res.send(`PORT455477 ${PORT}, NODE:${process.env.NODE_ENV}`)
+  res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`)
   // res.send('<h1>Hello from the TypeScript world! </h1>');
 });
 
