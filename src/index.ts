@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
 console.log('hi');
+console.log('hi');
 
 app.use(helmet());
 app.use(bodyParser.json());
