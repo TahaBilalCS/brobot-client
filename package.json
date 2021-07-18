@@ -7,8 +7,7 @@
     "dev": "cross-env NODE_ENV=development concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
     "prod": "cross-env NODE_ENV=production concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "cross-env NODE_ENV=test concurrently \"rimraf dist && tsc --watch\" \"nodemon -q dist/index.js\"",
-    "deploy": "pm2 deploy ecosystem.config.js production",
-    "rimraf": "./node_modules/rimraf/bin.js"
+    "deploy": "rimraf dist && tsc && pm2 deploy ecosystem.config.js production"
   },
   "repository": {
     "type": "git",

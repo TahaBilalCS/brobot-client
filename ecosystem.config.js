@@ -20,7 +20,7 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/BackendBill.git',
             path: '/home/ubuntu/BackendBill',
-            'post-deploy': 'npm install && tsc && pm2 startOrRestart ecosystem.config.js --env production'
+            'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js --env production'
         }
     }
 }
