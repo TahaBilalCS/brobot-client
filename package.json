@@ -9,7 +9,8 @@
     "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "prod": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "cross-env NODE_ENV=test concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
-    "deploy": "pm2 deploy ecosystem.config.js production"
+    "deploy": "pm2 deploy ecosystem.config.js production",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -38,11 +39,14 @@
     "@typescript-eslint/parser": "^4.28.3",
     "concurrently": "^6.2.0",
     "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
     "nodemon": "^2.0.12",
-    "pm2": "^5.1.0"
+    "pm2": "^5.1.0",
+    "prettier": "^2.3.2"
   }
 }
