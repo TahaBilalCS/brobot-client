@@ -16,8 +16,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-console": "error",
-        "prettier/prettier": ["error"], // if you choose to use prettier rules.
+        "no-console": "warn",
         /*
           "off" means 0 (turns the rule off completely)
           "warn" means 1 (turns the rule on but won't make the linter fail)
