@@ -1,9 +1,10 @@
+# Personal
 node_modules
 .DS_Store
 dist
 *.env
-**/.idea
 .eslintcache
+
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm
 
