@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    res.send(`PORTSNEW ${PORT}, NODE:${PORT}`);
+    res.send(`PORTSNEW ${PORT}, NODE:${process.env.NODE_ENV}`);
     // res.send('<h1>Hello from the TypeScript world! </h1>');
 });
 
