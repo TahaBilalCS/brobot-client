@@ -3,3 +3,4 @@ node_modules
 dist
 *.env
 **/.idea/workspace.xml **/.idea/tasks.xml
+.eslintcache
