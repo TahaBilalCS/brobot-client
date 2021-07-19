@@ -13,7 +13,8 @@
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No tests just yet\"",
     "prepare": "husky install",
-    "preserve": "npm run build"
+    "preserve": "npm run build",
+    "format": "prettier --write \"_/_.+(js|json)\""
   },
   "repository": {
     "type": "git",
