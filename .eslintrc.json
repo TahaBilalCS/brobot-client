@@ -1,42 +1,53 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module"
+        "ecmaVersion": 2021,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "@typescript-eslint"
     ],
     "rules": {
-        "no-console": "warn",
+        "@typescript-eslint/restrict-template-expressions": ["error", {
+            "allowNumber": true,
+            "allowBoolean": true,
+            "allowAny": true,
+            "allowNullable": true
+        }],
+        "no-use-before-define": [2, { "functions": false }],
+        "no-underscore-dangle": 0,
+        "block-scoped-var": 2,
+        "no-undef": 2,
+        "no-loop-func": 1,
+        "no-console": 1,
+        "no-debugger": 2,
+        "eqeqeq": 2,
+        "strict": [2, "function"],
+        "no-unused-vars": [2, { "args": "none" }],
+        "no-prototype-builtins": "warn"
+//        "@typescript-eslint/rule-name": ["error", {
+//            "allowNumber": true,
+//            "allowBoolean": true,
+//            "allowAny": true,
+//            "allowNullish": true
+//        }]
         /*
           "off" means 0 (turns the rule off completely)
           "warn" means 1 (turns the rule on but won't make the linter fail)
           "error" means 2 (turns the rule on and will make the linter fail)
         */
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
     }
 }

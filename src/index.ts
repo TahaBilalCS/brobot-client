@@ -4,21 +4,25 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import * as process from "process";
 
+export const sum = (...a: number[]): number => a.reduce((acc, val) => acc + val, 0);
+
 if (process.env.NODE_ENV !== "production") {
-	dotenv.config();
+    dotenv.config();
 }
+
+const str = undefined;
 
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
-console.log("hiasasasas");
 
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
-	res.send(`PORTS ${PORT}, NODE:${process.env.NODE_ENV}`);
-	// res.send('<h1>Hello from the TypeScript world! </h1>');
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    res.send(`PORTS ${PORT}, NODE:${str}`);
+    // res.send('<h1>Hello from the TypeScript world! </h1>');
 });
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
