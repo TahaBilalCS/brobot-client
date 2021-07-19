@@ -10,8 +10,6 @@ if (process.env.NODE_ENV !== "production") {
     dotenv.config();
 }
 
-const str = undefined;
-
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
 
@@ -21,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    res.send(`PORTSNEW ${PORT}, NODE:${str}`);
+    res.send(`PORTSNEW ${PORT}, NODE:${PORT}`);
     // res.send('<h1>Hello from the TypeScript world! </h1>');
 });
 
