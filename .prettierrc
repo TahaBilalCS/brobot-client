@@ -1,6 +1,6 @@
 {
   "tabWidth": 4,
-  "singleQuote": false,
+  "singleQuote": true,
   "semi": true,
   "bracketSpacing": true,
   "arrowParens": "avoid",
