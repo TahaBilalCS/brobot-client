@@ -50,7 +50,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
-    "husky": "^7.0.1",
+    "husky": "^7.0.0",
     "lint-staged": "^11.0.1",
     "nodemon": "^2.0.12",
     "pm2": "^5.1.0",
@@ -58,6 +58,9 @@
     "ts-jest": "^27.0.3"
   },
   "lint-staged": {
-    "*.{js,ts,cjs}": ["eslint --cache --fix", "prettier --check"]
+    "*.{js,ts,cjs}": [
+      "eslint --cache --fix",
+      "prettier --check"
+    ]
   }
 }
