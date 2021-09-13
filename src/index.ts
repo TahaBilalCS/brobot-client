@@ -2,6 +2,7 @@
  TODO
   Set environment variables for production
   Add typings
+  Commit tests
  */
 
 // Define our dependencies
