@@ -4,6 +4,7 @@
   Set environment variables for production
   Add typings
   Commit tests
+  Fix pre
  */
 
 // Define our dependencies
