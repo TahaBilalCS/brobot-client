@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  TODO
   Set environment variables for production
@@ -13,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
 ////////////////////////////////////////////
-
+// TODO need to figure out why we need .js
 import { router } from './routes/loginRoutes.js';
 
 import express, { Express } from 'express';
