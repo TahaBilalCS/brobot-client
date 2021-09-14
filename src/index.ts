@@ -12,11 +12,14 @@ import process from 'process';
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
-import express, { Express, Request, Response } from 'express';
+////////////////////////////////////////////
+
+import { router } from './routes/loginRoutes.js';
+
+import express, { Express } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import { OAuth2Strategy } from 'passport-oauth';
-import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
 
@@ -30,14 +33,20 @@ const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can ru
 
 const PORT = process.env.PORT || 3000;
 const app: Express = express();
+/**
+ * Use .urlencoded & .json before app.use(router)
+ * Calling urlencoded & json to handle the Request Object from POST requests
+ */
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(router);
 
 passport.serializeUser((user: never, done: any) => {
     done(null, user);
@@ -82,18 +91,18 @@ app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }))
 // Set route for OAuth redirect
 app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/fail' }));
 
-app.get('/', (req: Request, res: Response) => {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    // res.send('<h1>Hello from the TypeScript world! </h1>');
-    if (req.session /*&& req.session.passport && req.session.passport.user*/) {
-        // res.send(template(req.session.passport.user));
-        // Authenticated
-        res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
-    } else {
-        // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
-        res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
-    }
-});
+// app.get('/', (req: Request, res: Response) => {
+//     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+//     // res.send('<h1>Hello from the TypeScript world! </h1>');
+//     if (req.session /*&& req.session.passport && req.session.passport.user*/) {
+//         // res.send(template(req.session.passport.user));
+//         // Authenticated
+//         res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
+//     } else {
+//         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
+//         res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
+//     }
+// });
 
 // app.get('/user', (req, res) => {
 //     console.log('getting user data');
