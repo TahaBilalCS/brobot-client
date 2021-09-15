@@ -100,7 +100,7 @@ app.get('/', (req: any, res: any) => {
     if (req.session /*&& req.session.passport && req.session.passport.user*/) {
         // res.send(template(req.session.passport.user));
         // Authenticated
-        res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
+        res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}, ${process.env}`);
     } else {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
         res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
