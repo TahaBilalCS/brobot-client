@@ -15,7 +15,9 @@
     "parserOptions": {
         "ecmaVersion": 2021,
         "sourceType": "module",
-        "project": "./tsconfig.json"
+        "files": ["*.ts, *.cjs"],
+        "project": ["./tsconfig.json"],
+        "extraFileExtensions": true
     },
     "plugins": [
         "@typescript-eslint"

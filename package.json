@@ -63,7 +63,7 @@
     "ts-jest": "^27.0.3"
   },
   "lint-staged": {
-    "*.{js,ts,cjs}": [
+    "*.{js,ts}": [
       "eslint --cache --fix",
       "prettier --check"
     ]

@@ -103,7 +103,7 @@ app.get('/', (req: any, res: any) => {
         res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
     } else {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
-        res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}, SOME${process.env}`);
+        res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}, SOME ${process.env.TEST_SECRET}`);
     }
 });
 //
