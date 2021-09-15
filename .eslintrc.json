@@ -26,6 +26,7 @@
       "error" means 2 (turns the rule on and will make the linter fail)
     */
     "rules": {
+        "@typescript-eslint/explicit-function-return-type": 1,
         "@typescript-eslint/restrict-template-expressions": [
             "error",
             {
