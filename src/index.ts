@@ -94,18 +94,18 @@ const app: Express = express(); // Start express before middlewares
 // // Set route for OAuth redirect
 // app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/fail' }));
 //
-// // app.get('/', (req: Request, res: Response) => {
-// //     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-// //     // res.send('<h1>Hello from the TypeScript world! </h1>');
-// //     if (req.session /*&& req.session.passport && req.session.passport.user*/) {
-// //         // res.send(template(req.session.passport.user));
-// //         // Authenticated
-// //         res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
-// //     } else {
-// //         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
-// //         res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
-// //     }
-// // });
+app.get('/', (req: any, res: any) => {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    // res.send('<h1>Hello from the TypeScript world! </h1>');
+    if (req.session /*&& req.session.passport && req.session.passport.user*/) {
+        // res.send(template(req.session.passport.user));
+        // Authenticated
+        res.send(`SIGNED IN - PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
+    } else {
+        // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
+        res.send(`PORT ${PORT}, NODE:${process.env.NODE_ENV}`);
+    }
+});
 //
 // // app.get('/user', (req, res) => {
 // //     console.log('getting user data');
