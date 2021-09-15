@@ -77,7 +77,7 @@ router.get('/logout', (req: Request, res: Response) => {
 // Apply middleware first
 router.get('/protected', requireAuth, (req: Request, res: Response) => {
     res.send(`
-            <h1>SIGNED IN</h1> 
+            <h1>SIGNED IN</h1> ${process.env.NODE_ENV}
             <a href='/logout'>Logout</a>
         `);
 });
