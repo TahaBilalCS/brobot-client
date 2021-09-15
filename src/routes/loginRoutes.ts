@@ -2,6 +2,12 @@
 import process from 'process';
 import { Router, Request, Response } from 'express';
 
+// Because of body parser's lack of type, Interface now has all the same properties as Request. Overrides Request.body
+interface RequestWithBody extends Request {
+    // Body object with some unknown keys that are strings, and their values will either be a string | undefined
+    body: { [key: string]: string | undefined };
+}
+
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -30,11 +36,16 @@ router.get('/login', (req, res) => {
 </form>`);
 });
 
-router.post('/login', (req: Request, res: Response) => {
+router.post('/login', (req: RequestWithBody, res: Response) => {
     const { email, password } = req.body;
 
-    res.send(email + password);
+    if (email && password && email === 'hi' && password === 'pass') {
+        req.session.loggedIn = true; // User logged in
+        res.redirect('/'); // Redirect to root route
+    } else {
+        res.send('Invalid email or password');
+    }
 });
 
-// Curly brace when declaration (line 6) and export are not on the same line. It's an already created var
+// Curly brace when declaration (const router = Router) and export are not on the same line. It's an already created var
 export { router };

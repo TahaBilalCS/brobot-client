@@ -7,8 +7,8 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "npx jest --watch",
-    "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
-    "prod": "cross-env NODE_ENV=production concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q dist/index.js\"",
+    "prod": "cross-env NODE_ENV=production concurrently \"tsc -w\" \"nodemon -q dist/index.js\"",
     "deploy": "pm2 deploy ecosystem.config.cjs production",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No tests just yet\"",

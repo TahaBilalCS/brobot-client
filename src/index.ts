@@ -30,24 +30,25 @@ const TWITCH_CLIENT_ID = process.env.TWITCH_CID;
 const TWITCH_SECRET = process.env.TWITCH_SECRET;
 const SESSION_SECRET = 'sum secret';
 const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
+const PORT = process.env.PORT || 3000;
 
 //const userDB: any = {};
+const app: Express = express(); // Start express before middlewares
 
-const PORT = process.env.PORT || 3000;
-const app: Express = express();
 /**
- * Use .urlencoded & .json before app.use(router)
+ * Use .urlencoded, .json, session, etc, before app.use(router) -> Our routes setup
  * Calling urlencoded & json to handle the Request Object from POST requests
  */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(router);
 
 passport.serializeUser((user: never, done: any) => {
