@@ -3,6 +3,7 @@ import process from 'process';
 import { Router, Request, Response, NextFunction } from 'express';
 
 //http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
+// Decorators
 
 // Because of body parser's lack of type, Interface now has all the same properties as Request. Overrides Request.body
 interface RequestWithBody extends Request {
