@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-// http://ec2-3-231-208-118.compute-1.amazonaws.com/3000
+// http://ec2-3-231-208-118.compute-1.amazonaws.com
 
 // Define our dependencies
 import dotenv from 'dotenv';
@@ -43,17 +43,17 @@ app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(router);
 
-// passport.serializeUser((user: never, done: any) => {
-//     done(null, user);
-// });
-// passport.deserializeUser((user: never, done: any) => {
-//     done(null, user);
-// });
+passport.serializeUser((user: never, done: any) => {
+    done(null, user);
+});
+passport.deserializeUser((user: never, done: any) => {
+    done(null, user);
+});
 
 /**
  * Twitch Strategy
