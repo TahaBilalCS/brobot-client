@@ -1,11 +1,6 @@
 /* eslint-disable */
-/*
- TODO
-  Set environment variables for production
-  Add typings
-  Commit tests
-  Fix pre
- */
+
+// http://ec2-3-231-208-118.compute-1.amazonaws.com/3000
 
 // Define our dependencies
 import dotenv from 'dotenv';
@@ -25,15 +20,17 @@ import { OAuth2Strategy } from 'passport-oauth';
 import helmet from 'helmet';
 import cors from 'cors';
 
+// todo connect to db
+// const userDB: any = {};
+
+const app: Express = express(); // Start express before middlewares
+
 // Define our constants, you will change these with your own
 const TWITCH_CLIENT_ID = process.env.TWITCH_CID;
 const TWITCH_SECRET = process.env.TWITCH_SECRET;
 const SESSION_SECRET = 'sum secret';
 const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
 const PORT = process.env.PORT || 3000;
-
-//const userDB: any = {};
-const app: Express = express(); // Start express before middlewares
 
 /**
  * Use .urlencoded, .json, session, etc, before app.use(router) -> Our routes setup
@@ -58,7 +55,10 @@ passport.deserializeUser((user: never, done: any) => {
     done(null, user);
 });
 
-// Twitch Strategy
+/**
+ * Twitch Strategy
+ * Authenticate users in our app
+ */
 passport.use(
     'twitch',
     new OAuth2Strategy(

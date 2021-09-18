@@ -2,7 +2,7 @@
 import process from 'process';
 import { Router, Request, Response, NextFunction } from 'express';
 
-//http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
+// http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
 // Decorators
 
 // Because of body parser's lack of type, Interface now has all the same properties as Request. Overrides Request.body
@@ -23,8 +23,8 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
         return;
     }
 
-    res.status(403);
-    res.send('Not permitted');
+    // or 401 todo
+    res.status(403).send('Not permitted');
 }
 
 const router = Router();
