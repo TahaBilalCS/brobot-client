@@ -43,17 +43,17 @@ app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(router);
 
-// passport.serializeUser((user: never, done: any) => {
-//     done(null, user);
-// });
-// passport.deserializeUser((user: never, done: any) => {
-//     done(null, user);
-// });
+passport.serializeUser((user: never, done: any) => {
+    done(null, user);
+});
+passport.deserializeUser((user: never, done: any) => {
+    done(null, user);
+});
 //
 // /**
 //  * Twitch Strategy
