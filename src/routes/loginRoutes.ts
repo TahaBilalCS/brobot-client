@@ -36,13 +36,13 @@ router.get('/', (req: Request, res: Response) => {
     if (req.session.loggedIn /*&& req.session.passport && req.session.passport.user*/) {
         // User authenticated
         res.send(`
-            <h1>SIGNED IN</h1> - PORT: -, NODE:${process.env.NODE_ENV} ${process.env.TWITCH_CID_PROD}
+            <h1>SIGNED IN</h1> - PORT: -, NODE:${process.env.NODE_ENV}
             <a href='/logout'>Logout</a>
         `);
     } else {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
         res.send(`
-        PORT: -, NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CID_PROD}
+        PORT: -, NODE:${process.env.NODE_ENV}
         <a href='/login'>Login</a>
         `);
     }
