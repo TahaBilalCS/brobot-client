@@ -26,10 +26,12 @@ import cors from 'cors';
 const app: Express = express(); // Start express before middlewares
 
 // Define our constants, you will change these with your own
-const TWITCH_CLIENT_ID = process.env.TWITCH_CID;
-const TWITCH_SECRET = process.env.TWITCH_SECRET;
+const TWITCH_CID = process.env.TWITCH_SECRET_PROD;
+const TWITCH_SECRET = process.env.TWITCH_SECRET_PROD;
 const SESSION_SECRET = 'sum secret';
-const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
+// http://ec2-3-231-208-118.compute-1.amazonaws.com/
+// const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
+const CALLBACK_URL = 'http://ec2-3-231-208-118.compute-1.amazonaws.com/auth/twitch/callback';
 const PORT = process.env.PORT || 3000;
 
 /**
@@ -65,7 +67,7 @@ passport.use(
         {
             authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
             tokenURL: 'https://id.twitch.tv/oauth2/token',
-            clientID: TWITCH_CLIENT_ID,
+            clientID: TWITCH_CID,
             clientSecret: TWITCH_SECRET,
             callbackURL: CALLBACK_URL,
             state: true
