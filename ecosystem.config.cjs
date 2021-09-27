@@ -27,8 +27,8 @@ module.exports = {
             repo: 'git@github.com:TahaBilalCS/BackendBill.git',
             path: '/home/ubuntu/BackendBill',
             env: {
-                TWITCH_CLIENT_ID: process.env.TWITCH_CID,
-                TWITCH_SECRET: process.env.TWITCH_CID,
+                TWITCH_CLIENT_ID: process.env.TWITCH_CID_PROD,
+                TWITCH_SECRET: process.env.TWITCH_CID_PROD,
                 TEST_SECRET: process.env.TEST_SECRET
             },
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production'

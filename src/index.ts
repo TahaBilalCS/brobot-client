@@ -59,37 +59,38 @@ passport.deserializeUser((user: never, done: any) => {
  * Twitch Strategy
  * Authenticate users in our app
  */
-// passport.use(
-//     'twitch',
-//     new OAuth2Strategy(
-//         {
-//             authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
-//             tokenURL: 'https://id.twitch.tv/oauth2/token',
-//             clientID: TWITCH_CLIENT_ID,
-//             clientSecret: TWITCH_SECRET,
-//             callbackURL: CALLBACK_URL,
-//             state: true
-//         },
-//         (accessToken: any, refreshToken: any, profile: any, done: any) => {
-//             profile.accessToken = accessToken;
-//             profile.refreshToken = refreshToken;
-//
-//             // console.log(accessToken);
-//             // console.log(refreshToken);
-//             // console.log(profile);
-//             // console.log(done);
-//
-//             // Securely store user profile in your DB
-//             //User.findOrCreate(..., function(err, user) {
-//             //  done(err, user);
-//             //});
-//             done(null, profile);
-//         }
-//     )
-// );
+passport.use(
+    'twitch',
+    new OAuth2Strategy(
+        {
+            authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
+            tokenURL: 'https://id.twitch.tv/oauth2/token',
+            clientID: TWITCH_CLIENT_ID,
+            clientSecret: TWITCH_SECRET,
+            callbackURL: CALLBACK_URL,
+            state: true
+        },
+        (accessToken: any, refreshToken: any, profile: any, done: any) => {
+            profile.accessToken = accessToken;
+            profile.refreshToken = refreshToken;
+
+            console.log(accessToken);
+            console.log(refreshToken);
+            console.log(profile);
+            console.log(done);
+            1;
+
+            // Securely store user profile in your DB
+            //User.findOrCreate(..., function(err, user) {
+            //  done(err, user);
+            //});
+            done(null, profile);
+        }
+    )
+);
 
 // Set route to start OAuth link, this is where you define scopes to request
-app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
+app.get('/auth/twitch', passport.authenticate('twitch', { scope: ['user_read', 'user_subscriptions'] }));
 
 // Set route for OAuth redirect
 app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/fail' }));
