@@ -1,8 +1,6 @@
 /* eslint-disable */
 import process from 'process';
 import { Router, Request, Response, NextFunction } from 'express';
-import dotenv from 'dotenv';
-dotenv.config();
 
 // http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
 // Decorators
@@ -42,7 +40,7 @@ router.get('/', (req: Request, res: Response) => {
     } else {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
         res.send(`
-        PORT: -, NODE:${process.env.NODE_ENV}
+        PORT: -, NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CID_PROD}, ${process.env.TWITCH_SECRET_PROD}
         <a href='/login'>Login</a>
         `);
     }

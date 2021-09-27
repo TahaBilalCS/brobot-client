@@ -31,7 +31,7 @@ const TWITCH_SECRET = process.env.TWITCH_SECRET_PROD;
 const SESSION_SECRET = 'sum secret';
 // http://ec2-3-231-208-118.compute-1.amazonaws.com/
 // const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
-const CALLBACK_URL = 'http://ec2-3-231-208-118.compute-1.amazonaws.com/auth/twitch/callback';
+const CALLBACK_URL = 'https://ec2-3-231-208-118.compute-1.amazonaws.com/auth/twitch/callback';
 const PORT = process.env.PORT || 3000;
 
 /**
