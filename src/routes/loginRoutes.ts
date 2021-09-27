@@ -34,7 +34,7 @@ router.get('/', (req: Request, res: Response) => {
     if (req.session.loggedIn /*&& req.session.passport && req.session.passport.user*/) {
         // User authenticated
         res.send(`
-            <h1>SIGNED IN</h1> - PORT: -, NODE:${process.env.NODE_ENV}
+            <h1>SIGNED IN</h1> - PORT: -, NODE:${process.env.NODE_ENV} ${process.env.TWITCH_CID_PROD}
             <a href='/logout'>Logout</a>
         `);
     } else {
