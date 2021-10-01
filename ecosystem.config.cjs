@@ -21,7 +21,7 @@ module.exports = {
     deploy: {
         production: {
             user: 'ubuntu',
-            host: '34.234.175.84',
+            host: 'ec2-3-231-208-118.compute-1.amazonaws.com',
             key: '~/.ssh/billbo-key.pem',
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/BackendBill.git',
