@@ -15,7 +15,7 @@ module.exports = {
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-                PROD_PORT: process.env.PROD_PORT
+                PORT: process.env.PROD_PORT
             }
         }
     ],
