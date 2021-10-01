@@ -10,15 +10,13 @@ module.exports = {
             },
             env_production: {
                 NODE_ENV: 'production',
-                TWITCH_CLIENT_ID: process.env.TWITCH_CID,
-                TWITCH_SECRET: process.env.TWITCH_SECRET,
-                TEST_SECRET: process.env.TEST_SECRET,
-                TWITCH_CID_PROD: process.env.TWITCH_CID_PROD,
-                TWITCH_SECRET_PROD: process.env.TWITCH_SECRET_PROD
+                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+                TEST_SECRET: process.env.PROD_TEST_SECRET,
+                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                PROD_PORT: process.env.PROD_PORT
             }
-            // emv_test:{
-            //     NODE_ENV: "test"
-            // }
         }
     ],
     deploy: {
@@ -29,14 +27,7 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/BackendBill.git',
             path: '/home/ubuntu/BackendBill',
-            // Setup better prod/dev environments
-            // env: {
-            //     TWITCH_CLIENT_ID: process.env.TWITCH_CID,
-            //     TWITCH_SECRET: process.env.TWITCH_SECRET,
-            //     TEST_SECRET: process.env.TEST_SECRET,
-            //     TWITCH_CID_PROD: process.env.TWITCH_CID_PROD,
-            //     TWITCH_SECRET_PROD: process.env.TWITCH_SECRET_PROD
-            // },
+            // env: {}
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production'
         }
     }

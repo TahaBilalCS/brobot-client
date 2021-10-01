@@ -19,20 +19,22 @@ import passport from 'passport';
 import { OAuth2Strategy } from 'passport-oauth';
 import helmet from 'helmet';
 import cors from 'cors';
-
+import request from 'request';
 // todo connect to db
 // const userDB: any = {};
 
 const app: Express = express(); // Start express before middlewares
 
 // Define our constants, you will change these with your own
-const TWITCH_CID = process.env.TWITCH_SECRET_PROD;
-const TWITCH_SECRET = process.env.TWITCH_SECRET_PROD;
-const SESSION_SECRET = 'sum secret';
+const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+const TWITCH_SECRET = process.env.TWITCH_SECRET;
+const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const SESSION_SECRET = process.env.SESSION_SECRET || '';
+
+console.log('t', OAuth2Strategy);
 // http://ec2-3-231-208-118.compute-1.amazonaws.com/
 // const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
-const CALLBACK_URL = 'https://ec2-3-231-208-118.compute-1.amazonaws.com/auth/twitch/callback';
-const PORT = process.env.PORT || 3000;
 
 /**
  * Use .urlencoded, .json, session, etc, before app.use(router) -> Our routes setup
@@ -44,9 +46,30 @@ app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: fals
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Override passport profile function to get user profile from Twitch API
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+OAuth2Strategy.prototype.userProfile = function (accessToken: any, done: any): any {
+    const options = {
+        url: 'https://api.twitch.tv/helix/users',
+        method: 'GET',
+        headers: {
+            'Client-ID': TWITCH_CLIENT_ID,
+            Accept: 'application/vnd.twitchtv.v5+json',
+            Authorization: 'Bearer ' + accessToken
+        }
+    };
+
+    request(options, function (error: any, response: any, body: any): any {
+        if (response && response.statusCode === 200) {
+            done(null, JSON.parse(body));
+        } else {
+            done(JSON.parse(body));
+        }
+    });
+};
 
 app.use(router);
 
@@ -67,9 +90,9 @@ passport.use(
         {
             authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
             tokenURL: 'https://id.twitch.tv/oauth2/token',
-            clientID: TWITCH_CID,
+            clientID: TWITCH_CLIENT_ID,
             clientSecret: TWITCH_SECRET,
-            callbackURL: CALLBACK_URL,
+            callbackURL: TWITCH_CALLBACK_URL,
             state: true
         },
         (accessToken: any, refreshToken: any, profile: any, done: any) => {
@@ -80,7 +103,6 @@ passport.use(
             console.log(refreshToken);
             console.log(profile);
             console.log(done);
-            1;
 
             // Securely store user profile in your DB
             //User.findOrCreate(..., function(err, user) {
