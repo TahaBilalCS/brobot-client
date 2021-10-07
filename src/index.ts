@@ -46,6 +46,7 @@ app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: fals
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
+console.log('SUP');
 // app.use(passport.initialize());
 // app.use(passport.session());
 

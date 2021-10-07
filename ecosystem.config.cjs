@@ -6,7 +6,12 @@ module.exports = {
             name: 'BackendBill',
             script: 'dist/index.js',
             env: {
-                NODE_ENV: 'development'
+                NODE_ENV: 'development',
+                TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
+                TWITCH_SECRET: process.env.TWITCH_SECRET,
+                TEST_SECRET: process.env.TEST_SECRET,
+                TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
+                SESSION_SECRET: process.env.SESSION_SECRET,
             },
             env_production: {
                 NODE_ENV: 'production',
