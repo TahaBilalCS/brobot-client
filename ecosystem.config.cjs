@@ -13,7 +13,7 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.SESSION_SECRET,
             },
-            env_production: {
+            env_production1: {
                 NODE_ENV: 'production',
                 TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,

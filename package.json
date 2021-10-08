@@ -8,7 +8,7 @@
     "build": "rimraf dist && tsc",
     "test": "npx jest --watch",
     "dev": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env development --watch --update-env\"",
-    "prod": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env production --watch --update-env\"",
+    "prod": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env production1 --watch --update-env\"",
     "deploy": "pm2 deploy ecosystem.config.cjs production",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No script just yet\"",
