@@ -13,7 +13,7 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.SESSION_SECRET,
             },
-            env_production1: {
+            env_production: {
                 NODE_ENV: 'production',
                 TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
@@ -21,9 +21,9 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
-            env_test: {
-                NODE_ENV: 'productionaws',
-            }
+            // env_test: {
+            //     NODE_ENV: 'production',
+            // }
         }
     ],
     deploy: {
@@ -35,14 +35,13 @@ module.exports = {
             repo: 'git@github.com:TahaBilalCS/brobot.git',
             path: '/home/ubuntu/brobot',
             env: {
-                NODE_ENV: 'production',
                 TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
-            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env test --update-env'
+            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production --update-env'
         }
     }
 };
