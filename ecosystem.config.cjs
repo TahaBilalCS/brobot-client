@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
     apps: [
         {
-            name: 'BackendBill',
+            name: 'brobot',
             script: 'dist/index.js',
             env: {
                 NODE_ENV: 'development',
