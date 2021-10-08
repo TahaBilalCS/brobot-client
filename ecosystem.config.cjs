@@ -11,14 +11,15 @@ module.exports = {
         {
             name: 'brobot',
             script: 'dist/index.js',
-            env: {
-                NODE_ENV: 'development',
-                TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
-                TWITCH_SECRET: process.env.TWITCH_SECRET,
-                TEST_SECRET: process.env.TEST_SECRET,
-                TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.SESSION_SECRET
-            },
+            // env: {
+            //     NODE_ENV: 'development',
+            //     TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
+            //     TWITCH_SECRET: process.env.TWITCH_SECRET,
+            //     TEST_SECRET: process.env.TEST_SECRET,
+            //     TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
+            //     SESSION_SECRET: process.env.SESSION_SECRET
+            // },
+            // overrides production afterwards
             // env_production: {
             //     NODE_ENV: 'production',
             //     TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
