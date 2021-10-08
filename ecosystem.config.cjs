@@ -11,6 +11,9 @@ module.exports = {
             env_production: {
                 ...commonEnv.prod
             },
+            env_test:{
+
+            },
             watch_delay: 1000,
             ignore_watch: ['node_modules']
         }
@@ -26,7 +29,7 @@ module.exports = {
             env: {
                 ...commonEnv.prod
             },
-            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production --update-env'
+            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env test --update-env'
         }
     }
 };
