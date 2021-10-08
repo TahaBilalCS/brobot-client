@@ -1,2 +1,2 @@
-# BackendBill
-Backend for the brother bill bot project
+# Brobot
+Backend for the brobot project

@@ -18,7 +18,7 @@ interface RequestWithBody extends Request {
  * @param next
  */
 function requireAuth(req: Request, res: Response, next: NextFunction): void {
-    if (req.session.loggedIn) {
+    if (req.session?.loggedIn) {
         next();
         return;
     }
@@ -31,7 +31,7 @@ const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
     // res.send('<h1>Hello from the TypeScript world! </h1>');
-    if (req.session.loggedIn /*&& req.session.passport && req.session.passport.user*/) {
+    if (req.session?.loggedIn /*&& req.session.passport && req.session.passport.user*/) {
         // User authenticated
         res.send(`
             <h1>SIGNED IN</h1> - PORT: ${process.env.PORT} -, NODE:${process.env.NODE_ENV}
@@ -40,7 +40,8 @@ router.get('/', (req: Request, res: Response) => {
     } else {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
         res.send(`
-        PORT: ${process.env.PORT} -, NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, ${process.env.TWITCH_SECRET}
+        PORTSSX: ${process.env.PORT} -, NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, ${process.env.TWITCH_SECRET},
+        PORTSS: ${process.env.TEST_SECRET} -, NODE:${process.env.TWITCH_CALLBACK_URL}, ${process.env.SESSION_SECRET}
         <a href='/login'>Login</a>
         `);
     }
@@ -66,17 +67,17 @@ router.get('/login', (req, res) => {
 router.post('/login', (req: RequestWithBody, res: Response) => {
     const { email, password } = req.body;
 
-    if (email && password && email === 'hi' && password === 'pass') {
-        req.session.loggedIn = true; // User logged in
-        res.redirect('/'); // Redirect to root route
-    } else {
-        res.send('Invalid email or password');
-    }
+    // if (email && password && email === 'hi' && password === 'pass') {
+    //     req.session.loggedIn = true; // User logged in
+    //     res.redirect('/'); // Redirect to root route
+    // } else {
+    //     res.send('Invalid email or password');
+    // }
 });
 
 router.get('/logout', (req: Request, res: Response) => {
-    req.session.loggedIn = undefined;
-    res.redirect('/');
+    // req.session.loggedIn = undefined;
+    // res.redirect('/');
 });
 
 // Apply middleware first

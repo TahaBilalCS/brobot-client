@@ -1,5 +1,5 @@
 {
-  "name": "backendbill",
+  "name": "brobot",
   "version": "21.7.0",
   "description": "Running on AWS EC2 instance for api and bouncer",
   "main": "dist/index.js",
@@ -7,33 +7,33 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "npx jest --watch",
-    "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q dist/index.js\"",
-    "prod": "cross-env NODE_ENV=production concurrently \"tsc -w\" \"nodemon -q dist/index.js\"",
+    "dev": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env development --watch\"",
+    "prod": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env production --watch\"",
     "deploy": "pm2 deploy ecosystem.config.cjs production",
     "lint": "eslint . --ext .ts",
-    "stage": "echo \"No tests just yet\"",
+    "stage": "echo \"No script just yet\"",
     "prepare": "husky install",
     "preserve": "npm run build",
     "format": "prettier --write \"_/_.+(js|json)\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TahaBilalCS/BackendBill.git"
+    "url": "git+https://github.com/TahaBilalCS/brobot.git"
   },
   "author": "Brother Bill",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TahaBilalCS/BackendBill/issues"
+    "url": "https://github.com/TahaBilalCS/brobot/issues"
   },
-  "homepage": "https://github.com/TahaBilalCS/BackendBill#readme",
+  "homepage": "https://github.com/TahaBilalCS/brobot#readme",
   "dependencies": {
     "@types/express": "^4.17.13",
     "@types/node": "^16.3.3",
+    "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
     "helmet": "^4.6.0",
     "passport": "^0.4.1",
     "passport-oauth": "^1.0.0",
@@ -42,8 +42,8 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.43",
     "@types/cors": "^2.8.12",
-    "@types/express-session": "^1.17.4",
     "@types/jest": "^26.0.24",
     "@types/passport": "^1.0.7",
     "@types/request": "^2.48.7",

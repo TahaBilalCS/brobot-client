@@ -11,7 +11,7 @@ module.exports = {
                 TWITCH_SECRET: process.env.TWITCH_SECRET,
                 TEST_SECRET: process.env.TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.SESSION_SECRET,
+                SESSION_SECRET: process.env.SESSION_SECRET
             },
             env_production: {
                 NODE_ENV: 'production',
@@ -19,8 +19,10 @@ module.exports = {
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-            }
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET
+            },
+            watch_delay: 1000,
+            ignore_watch: ['node_modules', 'client/img']
         }
     ],
     deploy: {

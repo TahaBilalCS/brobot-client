@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-// http://ec2-3-231-208-118.compute-1.amazonaws.com
+// http://ec2-34-234-175-84.compute-1.amazonaws.com
 
 // Define our dependencies
 import dotenv from 'dotenv';
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 import { router } from './routes/loginRoutes.js';
 
 import express, { Express } from 'express';
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import passport from 'passport';
 import { OAuth2Strategy } from 'passport-oauth';
 import helmet from 'helmet';
@@ -42,7 +42,7 @@ const SESSION_SECRET = process.env.SESSION_SECRET || '';
  */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(cookieSession({ secret: SESSION_SECRET, keys: [''] }));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
