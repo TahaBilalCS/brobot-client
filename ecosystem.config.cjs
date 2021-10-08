@@ -36,7 +36,7 @@ module.exports = {
             env: {
                 PORT: process.env.PORT,
                 NODE_ENV: 'production',
-                TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
+                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
