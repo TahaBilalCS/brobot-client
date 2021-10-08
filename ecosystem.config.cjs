@@ -3,8 +3,8 @@ require('dotenv').config();
 module.exports = {
     apps: [
         {
-            name: 'BackendBill',
-            script: '/dist/index.js',
+            name: 'brobot',
+            script: 'dist/index.js',
             env: {
                 NODE_ENV: 'development',
                 TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
@@ -29,8 +29,8 @@ module.exports = {
             host: 'ec2-34-234-175-84.compute-1.amazonaws.com',
             key: '~/.ssh/billbo-key.pem',
             ref: 'origin/main',
-            repo: 'git@github.com:TahaBilalCS/BackendBill.git',
-            path: '/home/ubuntu/BackendBill',
+            repo: 'git@github.com:TahaBilalCS/brobot.git',
+            path: '/home/ubuntu/brobot',
             // env: {}
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production'
         }
