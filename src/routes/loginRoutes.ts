@@ -1,8 +1,6 @@
 /* eslint-disable */
 import process from 'process';
 import { Router, Request, Response, NextFunction } from 'express';
-import dotenv from 'dotenv';
-dotenv.config();
 
 // http://blog.wolksoftware.com/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4
 // Decorators

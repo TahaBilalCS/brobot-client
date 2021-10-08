@@ -3,12 +3,7 @@
 // http://ec2-34-234-175-84.compute-1.amazonaws.com
 
 // Define our dependencies
-import dotenv from 'dotenv';
 import process from 'process';
-
-// if (process.env.NODE_ENV !== 'production') {
-dotenv.config();
-// }
 
 // TODO need to figure out why we need .js
 import { router } from './routes/loginRoutes.js';
