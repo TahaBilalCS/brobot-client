@@ -41,7 +41,7 @@ app.use(cookieSession({ secret: SESSION_SECRET, keys: [''] }));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
-console.log('SUP');
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 
