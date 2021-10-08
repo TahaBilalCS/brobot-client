@@ -43,7 +43,7 @@ module.exports = {
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
                 NODE_ENV: 'production',
             },
-            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production'
+            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production --update-env'
         }
     }
 };
