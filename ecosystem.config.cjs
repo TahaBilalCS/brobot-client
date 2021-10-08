@@ -33,7 +33,7 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/brobot.git',
             path: '/home/ubuntu/brobot',
-            env_production: {
+            env: {
                 NODE_ENV: 'production',
                 TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
