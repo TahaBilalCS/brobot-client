@@ -34,7 +34,7 @@ console.log(process.env.SESSION_SECRET);
 console.log(process.env.PORT);
 console.log(process.env.TWITCH_CLIENT_IDD);
 console.log(process.env.PROD_TWITCH_SECRET);
-console.log(process.env.PROD_TEST_SECRET);
+console.log(process.env);
 // console.log('t', OAuth2Strategy);
 // http://ec2-3-231-208-118.compute-1.amazonaws.com/
 // const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
