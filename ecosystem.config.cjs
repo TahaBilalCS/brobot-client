@@ -19,15 +19,15 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.SESSION_SECRET
             },
-            env_production: {
-                NODE_ENV: 'production',
-                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
-                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
-                TEST_SECRET: process.env.PROD_TEST_SECRET,
-                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-                PORT: process.env.PORT,
-            },
+            // env_production: {
+            //     NODE_ENV: 'production',
+            //     TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+            //     TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+            //     TEST_SECRET: process.env.PROD_TEST_SECRET,
+            //     TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+            //     SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+            //     PORT: process.env.PORT,
+            // },
             // watch_delay: 1000,
             // ignore_watch: ['node_modules']
         }
@@ -40,22 +40,22 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/brobot.git',
             path: '/home/ubuntu/brobot',
-            // env: {
-            //     // PORT: process.env.PORT,
-            //     // TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
-            //     // TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
-            //     // TEST_SECRET: process.env.PROD_TEST_SECRET,
-            //     // TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-            //     // SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-            //     // NODE_ENV: 'production',
-            //     PORT: process.env.PORT,
-            //     TWITCH_CLIENT_ID: '1234',
-            //     TWITCH_SECRET: '12345',
-            //     TEST_SECRET: '123456',
-            //     TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-            //     SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-            //     NODE_ENV: 'production',
-            // },
+            env: {
+                PORT: process.env.PORT,
+                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+                TEST_SECRET: process.env.PROD_TEST_SECRET,
+                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                NODE_ENV: 'production',
+                // PORT: process.env.PORT,
+                // TWITCH_CLIENT_ID: '1234',
+                // TWITCH_SECRET: '12345',
+                // TEST_SECRET: '123456',
+                // TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                // SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                // NODE_ENV: 'production',
+            },
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production --update-env'
         }
     }
