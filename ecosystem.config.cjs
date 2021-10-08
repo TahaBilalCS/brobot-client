@@ -15,12 +15,12 @@ module.exports = {
             },
             env_production: {
                 NODE_ENV: 'production1',
-                PORT: process.env.PORT,
                 TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.PROD_SESSION_SECRET
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                PORT: process.env.PORT,
             },
             // watch_delay: 1000,
             // ignore_watch: ['node_modules']
@@ -34,15 +34,15 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/brobot.git',
             path: '/home/ubuntu/brobot',
-            env: {
-                PORT: process.env.PORT,
-                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
-                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
-                TEST_SECRET: process.env.PROD_TEST_SECRET,
-                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-                NODE_ENV: 'production',
-            },
+            // env: {
+            //     PORT: process.env.PORT,
+            //     TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+            //     TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+            //     TEST_SECRET: process.env.PROD_TEST_SECRET,
+            //     TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+            //     SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+            //     NODE_ENV: 'production',
+            // },
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production'
         }
     }
