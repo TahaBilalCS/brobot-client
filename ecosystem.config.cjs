@@ -22,7 +22,7 @@ module.exports = {
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
             env_test: {
-
+                NODE_ENV: 'production',
             }
         }
     ],
