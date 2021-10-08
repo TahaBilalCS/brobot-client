@@ -4,7 +4,7 @@ module.exports = {
     apps: [
         {
             name: 'BackendBill',
-            script: 'dist/index.js',
+            script: '/dist/index.js',
             env: {
                 NODE_ENV: 'development',
                 TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
