@@ -21,8 +21,8 @@ module.exports = {
             //     TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
             //     SESSION_SECRET: process.env.PROD_SESSION_SECRET
             // },
-            watch_delay: 1000,
-            ignore_watch: ['node_modules', 'client/img']
+            // watch_delay: 1000,
+            // ignore_watch: ['node_modules']
         }
     ],
     deploy: {
