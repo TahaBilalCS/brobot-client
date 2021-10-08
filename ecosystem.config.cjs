@@ -5,7 +5,7 @@
 //     dotenv.config();
 // }
 require('dotenv').config();
-
+console.log("EXPORT DOTENV", process.env.PROD_TWITCH_CALLBACK_URL, process.env.PROD_TWITCH_CALLBACK_URL)
 module.exports = {
     apps: [
         {
