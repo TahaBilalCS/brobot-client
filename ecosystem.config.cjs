@@ -32,8 +32,8 @@ module.exports = {
             host: 'ec2-34-234-175-84.compute-1.amazonaws.com',
             key: '~/.ssh/billbo-key.pem',
             ref: 'origin/main',
-            repo: 'git@github.com:TahaBilalCS/BackendBill.git',
-            path: '/home/ubuntu/BackendBill',
+            repo: 'git@github.com:TahaBilalCS/brobot.git',
+            path: '/home/ubuntu/brobot',
             // env: {}
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env test --update-env'
         }
