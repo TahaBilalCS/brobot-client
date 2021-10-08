@@ -19,15 +19,15 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.SESSION_SECRET
             },
-            // env_production: {
-            //     NODE_ENV: 'production1',
-            //     TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
-            //     TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
-            //     TEST_SECRET: process.env.PROD_TEST_SECRET,
-            //     TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-            //     SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-            //     PORT: process.env.PORT,
-            // },
+            env_production: {
+                NODE_ENV: 'production1',
+                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+                TWITCH_SECRET: '65421',
+                TEST_SECRET: '54312',
+                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                PORT: process.env.PORT,
+            },
             // watch_delay: 1000,
             // ignore_watch: ['node_modules']
         }
