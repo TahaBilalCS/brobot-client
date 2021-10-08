@@ -4,11 +4,9 @@
 
 // Define our dependencies
 import process from 'process';
-import dotenv from 'dotenv';
-if (process.env.NODE_ENV !== 'production') {
-    dotenv.config();
-}
+// import { commonEnv } from '../commonEnv';
 
+// console.log(commonEnv.prod);
 // TODO need to figure out why we need .js
 import { router } from './routes/loginRoutes.js';
 
@@ -25,30 +23,34 @@ import request from 'request';
 const app: Express = express(); // Start express before middlewares
 
 // Define our constants, you will change these with your own
-const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-const TWITCH_SECRET = process.env.TWITCH_SECRET;
-const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
+// const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+// const TWITCH_SECRET = process.env.TWITCH_SECRET;
+// const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-const SESSION_SECRET = process.env.SESSION_SECRET || '';
+// const SESSION_SECRET = process.env.SESSION_SECRET || '';
+// console.log(process.env.TWITCH_CLIENT_ID);
+// console.log(process.env.TWITCH_SECRET);
+// console.log(process.env.TEST_SECRET);
+// console.log(process.env.TWITCH_CALLBACK_URL);
+// console.log(process.env.SESSION_SECRET);
+// console.log(process.env.PORT);
+
+// console.log(process.env.PROD_TWITCH_SECRET);
+// console.log(process.env);
 console.log(process.env.TWITCH_CLIENT_ID);
-console.log(process.env.TWITCH_SECRET);
-console.log(process.env.TEST_SECRET);
-console.log(process.env.TWITCH_CALLBACK_URL);
-console.log(process.env.SESSION_SECRET);
-console.log(process.env.PORT);
-console.log(process.env.TWITCH_CLIENT_IDD);
-console.log(process.env.PROD_TWITCH_SECRET);
 // console.log('t', OAuth2Strategy);
 // http://ec2-3-231-208-118.compute-1.amazonaws.com/
 // const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
+// import { commonEnv } from './config/commonEnv.cjs';
 
+// console.log(commonEnv);
 /**
  * Use .urlencoded, .json, session, etc, before app.use(router) -> Our routes setup
  * Calling urlencoded & json to handle the Request Object from POST requests
  */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieSession({ secret: SESSION_SECRET, keys: [''] }));
+// app.use(cookieSession({ secret: SESSION_SECRET, keys: [''] }));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
