@@ -34,6 +34,7 @@ module.exports = {
             repo: 'git@github.com:TahaBilalCS/brobot.git',
             path: '/home/ubuntu/brobot',
             env: {
+                PORT: process.env.PORT,
                 NODE_ENV: 'production',
                 TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
