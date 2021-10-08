@@ -4,6 +4,10 @@
 
 // Define our dependencies
 import process from 'process';
+import dotenv from 'dotenv';
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 // TODO need to figure out why we need .js
 import { router } from './routes/loginRoutes.js';
