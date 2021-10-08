@@ -9,7 +9,7 @@
     "test": "npx jest --watch",
     "dev": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env development --watch\"",
     "prod": "concurrently \"tsc -w\" \"pm2 startOrRestart ecosystem.config.cjs --env production --watch\"",
-    "deploy": "pm2 deploy ecosystem.config.cjs production",
+    "deploy": "pm2 deploy ecosystem.config.cjs --env production",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No script just yet\"",
     "prepare": "husky install",
