@@ -21,6 +21,7 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
+            // Don't overwrite injected variables on remote machine
             env_aws: {
                 NODE_ENV: 'production',
             }
