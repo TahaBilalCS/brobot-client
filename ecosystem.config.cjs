@@ -12,6 +12,7 @@ module.exports = {
                 TEST_SECRET: process.env.TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.SESSION_SECRET,
+                HOST: process.env.HOST
             },
             // pm2 stop all to reload new environment variables
             env_production: {
@@ -23,6 +24,7 @@ module.exports = {
                 NODE_ENV: 'production',
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                HOST: process.env.HOST
             },
             // Don't overwrite injected variables on remote machine
             env_aws: {
@@ -45,10 +47,11 @@ module.exports = {
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                HOST: process.env.HOST
             },
             // pm2 caches environment variables and --update-env doesn't seem to be working
-            // Need to delete pm2 instance before deploying in order to update todo maybe delete in post deploy?
-            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
+            // Need to delete pm2 instance before starting instance again to update
+            'post-deploy': 'npm install && npm run build && pm2 delete brobot && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
 };
