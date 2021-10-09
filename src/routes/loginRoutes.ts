@@ -41,7 +41,7 @@ router.get('/', (req: Request, res: Response) => {
         // res.send('<html><head><title>Twitch Auth Sample</title></head><a href="/auth/twitch"><img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png"></a></html>');
         res.send(`
         PORTSSX: ${process.env.PORT} -, NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, ${process.env.TWITCH_SECRET},
-        PORTSS: ${process.env.TEST_SECRET} -, NODE:${process.env.TWITCH_CALLBACK_URL}, ${process.env.SESSION_SECRET}, ${process.env.HOST}
+        PORTSS: ${process.env.TEST_SECRET} -, NODE:${process.env.TWITCH_CALLBACK_URL}, ${process.env.SESSION_SECRET}, ${process.env.DOMAIN}
         <a href='/login'>Login</a>
         `);
     }
