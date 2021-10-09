@@ -46,6 +46,7 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
+            // --update-env doesn't seem to be working, need to delete pm2 instance before deploying in order to update
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
