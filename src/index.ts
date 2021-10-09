@@ -76,7 +76,6 @@ passport.deserializeUser((user: never, done: any) => {
     done(null, user);
 });
 
-console.log(TWITCH_CALLBACK_URL);
 /**
  * Twitch Strategy
  * Authenticate users in our app
