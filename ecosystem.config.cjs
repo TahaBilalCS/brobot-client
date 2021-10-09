@@ -47,7 +47,7 @@ module.exports = {
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
             // pm2 caches environment variables and --update-env doesn't seem to be working
-            // Need to delete pm2 instance before deploying in order to update
+            // Need to delete pm2 instance before deploying in order to update todo maybe delete in post deploy?
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
