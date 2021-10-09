@@ -21,9 +21,9 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
-            // env_test: {
-            //     NODE_ENV: 'production',
-            // }
+            env_aws: {
+                NODE_ENV: 'production',
+            }
         }
     ],
     deploy: {
@@ -41,7 +41,7 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
-            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env production --update-env'
+            'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
 };
