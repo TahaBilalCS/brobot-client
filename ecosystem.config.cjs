@@ -33,7 +33,7 @@ module.exports = {
     deploy: {
         production: {
             user: 'ubuntu',
-            host: 'ec2-34-234-175-84.compute-1.amazonaws.com',
+            host: 'ec2-54-204-158-205.compute-1.amazonaws.com',
             key: '~/.ssh/billbo-key.pem',
             ref: 'origin/main',
             repo: 'git@github.com:TahaBilalCS/brobot.git',
@@ -46,7 +46,8 @@ module.exports = {
                 TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
             },
-            // --update-env doesn't seem to be working, need to delete pm2 instance before deploying in order to update
+            // pm2 caches environment variables and --update-env doesn't seem to be working
+            // Need to delete pm2 instance before deploying in order to update
             'post-deploy': 'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
