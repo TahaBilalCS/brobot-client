@@ -23,7 +23,6 @@ if (MONGO_URI) {
 
 const app: Express = express(); // Start express before middlewares
 
-// Define our constants, you will change these with your own
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 // const SESSION_SECRET = process.env.SESSION_SECRET || '';
 
