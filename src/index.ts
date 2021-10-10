@@ -1,19 +1,21 @@
 /* eslint-disable */
 import process from 'process';
 import express, { Express } from 'express';
-import { router as loginRouter } from './routes/login.router.js'; // TODO need to figure out why we need .js
-import { router as userRouter } from './routes/user.router.js';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoose from 'mongoose';
-
-// Models before usage in Services
+// Models before usage in Services and Routers
 import './models/User.js';
-console.log('TESTER', process.env.MONGO_URI, process.env.TWITCH_CLIEND_ID, process.env.NODE_ENV);
-// Services after models
+
+// Routers after Models
+import { router as loginRouter } from './routes/login.router.js'; // TODO need to figure out why we need .js
+import { router as userRouter } from './routes/user.router.js';
+
+// Services after Models
 import * as passportService from './services/passport.service.js';
-// import * as userService from './services/user.service.js';
+
+console.log('TESTER', process.env.MONGO_URI, process.env.TWITCH_CLIEND_ID, process.env.NODE_ENV);
 
 const MONGO_URI = process.env.MONGO_URI;
 if (MONGO_URI) {

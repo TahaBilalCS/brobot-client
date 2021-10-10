@@ -21,10 +21,10 @@ router.get('/api/secret', requireAuth, (req: any, res: any) => {
 });
 
 // TODO need to wire up schema in user service
-// router.get('/api/users', requireAuth, async (req: any, res: any, next) => {
-//     /** router -> controller -> service */
-//     await userController.getUsers(req, res, next);
-// });
+router.get('/api/users', requireAuth, async (req: any, res: any, next) => {
+    /** router -> controller -> service */
+    await userController.getUsers(req, res, next);
+});
 // router.get('/api/users', requireAuth, userController.getUsers);
 
 export { router };
