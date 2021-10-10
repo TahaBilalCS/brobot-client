@@ -55,46 +55,46 @@ export const init = (app: Application) => {
      * Twitch Strategy
      * Authenticate users in our app
      */
-    // passport.use(
-    //     'twitch',
-    //     new OAuth2Strategy(
-    //         {
-    //             authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
-    //             tokenURL: 'https://id.twitch.tv/oauth2/token',
-    //             clientID: TWITCH_CLIENT_ID,
-    //             clientSecret: TWITCH_SECRET,
-    //             callbackURL: TWITCH_CALLBACK_URL,
-    //             state: true
-    //         },
-    //         async (accessToken: any, refreshToken: any, profile: any, done: any) => {
-    //             // TODO do something with access/refresh token
-    //             // profile.accessToken = accessToken;
-    //             // profile.refreshToken = refreshToken;
-    //
-    //             // Profile information stored in this response
-    //             const userProfile = profile.data[0];
-    //
-    //             const user = await User.findOne({ twitchID: userProfile.id });
-    //             // If user already exists
-    //             if (user) {
-    //                 console.log(`Existing User Login: ${userProfile.display_name}`);
-    //                 done(null, user);
-    //             } else {
-    //                 // TODO try/catch with done(errorObject,newUser)
-    //                 // Create new user
-    //                 const newUser = await new User({
-    //                     oauthID: userProfile.id,
-    //                     displayName: userProfile.display_name,
-    //                     twitch: {
-    //                         email: userProfile.email,
-    //                         accountCreatedDate: userProfile.created_at,
-    //                         profileImageURL: userProfile.profile_image_url
-    //                     }
-    //                 }).save();
-    //                 done(null, newUser);
-    //                 console.log(`New User Login: ${userProfile.display_name}`);
-    //             }
-    //         }
-    //     )
-    // );
+    passport.use(
+        'twitch',
+        new OAuth2Strategy(
+            {
+                authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
+                tokenURL: 'https://id.twitch.tv/oauth2/token',
+                clientID: TWITCH_CLIENT_ID,
+                clientSecret: TWITCH_SECRET,
+                callbackURL: TWITCH_CALLBACK_URL,
+                state: true
+            },
+            async (accessToken: any, refreshToken: any, profile: any, done: any) => {
+                // TODO do something with access/refresh token
+                // profile.accessToken = accessToken;
+                // profile.refreshToken = refreshToken;
+
+                // Profile information stored in this response
+                const userProfile = profile.data[0];
+
+                const user = await User.findOne({ twitchID: userProfile.id });
+                // If user already exists
+                if (user) {
+                    console.log(`Existing User Login: ${userProfile.display_name}`);
+                    done(null, user);
+                } else {
+                    // TODO try/catch with done(errorObject,newUser)
+                    // Create new user
+                    const newUser = await new User({
+                        oauthID: userProfile.id,
+                        displayName: userProfile.display_name,
+                        twitch: {
+                            email: userProfile.email,
+                            accountCreatedDate: userProfile.created_at,
+                            profileImageURL: userProfile.profile_image_url
+                        }
+                    }).save();
+                    done(null, newUser);
+                    console.log(`New User Login: ${userProfile.display_name}`);
+                }
+            }
+        )
+    );
 };
