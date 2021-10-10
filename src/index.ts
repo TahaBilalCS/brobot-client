@@ -15,8 +15,6 @@ import { router as userRouter } from './routes/user.router.js';
 // Services after Models
 import * as passportService from './services/passport.service.js';
 
-console.log('ENV', process.env.MONGO_URI, process.env.TWITCH_CLIEND_ID, process.env.NODE_ENV);
-
 const MONGO_URI = process.env.MONGO_URI;
 if (MONGO_URI) {
     console.log('Mongoose Connected: ', process.env.MONGO_URI);
