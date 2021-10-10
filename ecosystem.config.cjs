@@ -23,7 +23,7 @@ module.exports = {
             },
             // pm2 stop all to reload new environment variables
             env_production: {
-                NODE_ENV: 'production',
+                // NODE_ENV: 'production',
                 // PORT: process.env.PORT,
                 // DOMAIN: process.env.DOMAIN,
                 // TEST_SECRET: process.env.PROD_TEST_SECRET,
