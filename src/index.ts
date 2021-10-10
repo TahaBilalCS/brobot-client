@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 
 // Models before usage in Services
 import './models/User.js';
-
+console.log('TESTER', process.env.MONGO_URI, process.env.TWITCH_CLIEND_ID, process.env.NODE_ENV);
 // Services after models
 import * as passportService from './services/passport.service.js';
 // import * as userService from './services/user.service.js';
