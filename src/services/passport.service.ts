@@ -7,8 +7,7 @@ import process from 'process';
 import { Application } from 'express';
 import mongoose from 'mongoose';
 import type { UserInterface } from '../models/User.js';
-const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-console.log('TEST', TWITCH_CLIENT_ID);
+
 export const init = (app: Application) => {
     const User = mongoose.model<UserInterface>('users');
 
@@ -56,7 +55,6 @@ export const init = (app: Application) => {
      * Twitch Strategy
      * Authenticate users in our app
      */
-    console.log('CLIENT', TWITCH_CLIENT_ID);
     passport.use(
         'twitch',
         new OAuth2Strategy(

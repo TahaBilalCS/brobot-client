@@ -18,7 +18,7 @@ export const getUser = async (req: any, res: any, next: NextFunction) => {
         const users = await userService.getUser(req.user.id);
         res.send(users);
     } catch (err) {
-        console.log('Error getting users', err);
+        console.log('Error getting user', err);
         next(err);
     }
 };
