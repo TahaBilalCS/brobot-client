@@ -8,13 +8,13 @@ import { Application } from 'express';
 import mongoose from 'mongoose';
 import type { UserInterface } from '../models/User.js';
 
-const User = mongoose.model<UserInterface>('users');
-
-const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-const TWITCH_SECRET = process.env.TWITCH_SECRET;
-const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
-
 export const init = (app: Application) => {
+    const User = mongoose.model<UserInterface>('users');
+
+    const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+    const TWITCH_SECRET = process.env.TWITCH_SECRET;
+    const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
+
     app.use(passport.initialize());
     app.use(passport.session());
 
