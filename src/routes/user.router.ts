@@ -1,9 +1,8 @@
 /* eslint-disable */
-/** User router in index.ts */
+/** User router in index.ts | router -> controller -> service*/
 import { Router } from 'express';
 import { requireAuth } from '../middlewares/requireAuth.js';
 import * as userController from '../controllers/user.controller.js';
-
 const router = Router();
 
 // Current logged in user
@@ -20,11 +19,9 @@ router.get('/api/secret', requireAuth, (req: any, res: any) => {
     res.send(req.user);
 });
 
-// TODO need to wire up schema in user service
+// router.get('/api/users', requireAuth, userController.getUsers);
 router.get('/api/users', requireAuth, async (req: any, res: any, next) => {
-    /** router -> controller -> service */
     await userController.getUsers(req, res, next);
 });
-// router.get('/api/users', requireAuth, userController.getUsers);
 
 export { router };
