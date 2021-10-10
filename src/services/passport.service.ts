@@ -55,6 +55,7 @@ export const init = (app: Application) => {
      * Twitch Strategy
      * Authenticate users in our app
      */
+    console.log('CLIENT', TWITCH_CLIENT_ID);
     passport.use(
         'twitch',
         new OAuth2Strategy(
