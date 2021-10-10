@@ -1,128 +1,62 @@
 /* eslint-disable */
-
-// ubuntu@ec2-54-204-158-205.compute-1.amazonaws.com
-
-// Define our dependencies
 import process from 'process';
-
-// console.log(commonEnv.prod);
-// TODO need to figure out why we need .js
-import { router } from './routes/loginRoutes.js';
-
 import express, { Express } from 'express';
+import { router as loginRouter } from './routes/login.router.js'; // TODO need to figure out why we need .js
+import { router as userRouter } from './routes/user.router.js';
 import cookieSession from 'cookie-session';
-import passport from 'passport';
-import { OAuth2Strategy } from 'passport-oauth';
 import helmet from 'helmet';
 import cors from 'cors';
-import request from 'request';
-// todo connect to db
-// const userDB: any = {};
+import mongoose from 'mongoose';
+
+// Models before usage in Services
+import './models/User.js';
+
+// Services after models
+import * as passportService from './services/passport.service.js';
+// import * as userService from './services/user.service.js';
+
+const MONGO_URI = process.env.MONGO_URI;
+if (MONGO_URI) {
+    console.log('Mongoose Connected: ', process.env.MONGO_URI);
+    void mongoose.connect(MONGO_URI);
+} // void or empty .then()
 
 const app: Express = express(); // Start express before middlewares
 
 // Define our constants, you will change these with your own
-const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
-const TWITCH_SECRET = process.env.TWITCH_SECRET;
-const TWITCH_CALLBACK_URL = process.env.TWITCH_CALLBACK_URL;
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-const SESSION_SECRET = process.env.SESSION_SECRET || '';
-
-// ubuntu@ec2-54-204-158-205.compute-1.amazonaws.com
-// const CALLBACK_URL = 'http://localhost:3000/auth/twitch/callback'; // You can run locally with - http://localhost:3000/auth/twitch/callback
+// const SESSION_SECRET = process.env.SESSION_SECRET || '';
 
 /**
+ * Order matters
  * Use .urlencoded, .json, session, etc, before app.use(router) -> Our routes setup
  * Calling urlencoded & json to handle the Request Object from POST requests
  */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieSession({ secret: SESSION_SECRET, keys: [''] }));
+
+/**
+ * Key difference between cookie-session and express-session is how the keys are stored
+ * Cookie Session: Cookie IS the session -> Take user ID, find user, set it on req.session
+ * Express Session: Cookie references a session -> Take session ID, then look at server side session store
+ * Cookie has a small size limit with cookie-sesion compared to bucket of data from express-session. Only care about id
+ * Passes into req.session. Cookie expires in 30 days, extracts cookie data to be passed into passport
+ */
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [process.env.COOKIE_KEY || '']
+        // secret: SESSION_SECRET
+    })
+);
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Override passport profile function to get user profile from Twitch API
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-OAuth2Strategy.prototype.userProfile = function (accessToken: any, done: any): any {
-    const options = {
-        url: 'https://api.twitch.tv/helix/users',
-        method: 'GET',
-        headers: {
-            'Client-ID': TWITCH_CLIENT_ID,
-            Accept: 'application/vnd.twitchtv.v5+json',
-            Authorization: 'Bearer ' + accessToken
-        }
-    };
-
-    request(options, function (error: any, response: any, body: any): any {
-        if (response && response.statusCode === 200) {
-            done(null, JSON.parse(body));
-        } else {
-            done(JSON.parse(body));
-        }
-    });
-};
-
-app.use(router);
-
-passport.serializeUser((user: never, done: any) => {
-    done(null, user);
-});
-passport.deserializeUser((user: never, done: any) => {
-    done(null, user);
-});
-
-/**
- * Twitch Strategy
- * Authenticate users in our app
- */
-passport.use(
-    'twitch',
-    new OAuth2Strategy(
-        {
-            authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
-            tokenURL: 'https://id.twitch.tv/oauth2/token',
-            clientID: TWITCH_CLIENT_ID,
-            clientSecret: TWITCH_SECRET,
-            callbackURL: TWITCH_CALLBACK_URL,
-            state: true
-        },
-        (accessToken: any, refreshToken: any, profile: any, done: any) => {
-            profile.accessToken = accessToken;
-            profile.refreshToken = refreshToken;
-
-            console.log(accessToken);
-            console.log(refreshToken);
-            console.log(profile);
-            console.log(done);
-
-            // Securely store user profile in your DB
-            //User.findOrCreate(..., function(err, user) {
-            //  done(err, user);
-            //});
-            done(null, profile);
-        }
-    )
-);
-
-// Set route to start OAuth link, this is where you define scopes to request
-app.get('/auth/twitch', passport.authenticate('twitch', { scope: ['user_read', 'user_subscriptions'] }));
-
-// Set route for OAuth redirect
-app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/fail' }));
-
-// app.get('/user', (req, res) => {
-//     console.log('getting user data');
-//     res.send(userDB);
-// });
-//
-// app.get('/auth/logout', (req, res) => {
-//     userDB = {};
-//     res.redirect('/');
-// });
+/** Service Init */
+passportService.init(app);
+/** Routes Init */
+app.use(loginRouter);
+app.use(userRouter);
 
 app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));

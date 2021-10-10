@@ -14,7 +14,7 @@
     "stage": "echo \"No script just yet\"",
     "prepare": "husky install",
     "preserve": "npm run build",
-    "format": "prettier --write \"_/_.+(js|json)\""
+    "format": "prettier --write src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "mongoose": "^6.0.10",
     "passport": "^0.4.1",
     "passport-oauth": "^1.0.0",
     "request": "^2.88.2",

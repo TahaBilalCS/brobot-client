@@ -1,0 +1,19 @@
+/* eslint-disable */
+/** Use service in controller */
+import mongoose from 'mongoose';
+import { UserInterface } from '../models/User.js';
+// TODO we shouldn't need this import '../models/User.js';
+
+const User = mongoose.model<UserInterface>('users');
+
+export const getUsers = async (): Promise<any> => {
+    return User.find({});
+};
+
+export const getUser = async (userID: string | undefined): Promise<any> => {
+    return User.findOne({
+        oauthID: userID
+    });
+};
+
+// Delete user, update user
