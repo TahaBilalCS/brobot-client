@@ -37,7 +37,20 @@ module.exports = {
                 COOKIE_KEY: process.env.PROD_COOKIE_KEY
             },
             // Don't overwrite injected variables on remote machine
-            env_aws: {}
+            env_aws: {
+                NODE_ENV: 'production',
+                PORT: process.env.PORT,
+                DOMAIN: process.env.DOMAIN,
+                TEST_SECRET: process.env.PROD_TEST_SECRET,
+                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                //
+                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                //
+                MONGO_URI: process.env.PROD_MONGO_URI,
+                COOKIE_KEY: process.env.PROD_COOKIE_KEY
+            }
         }
     ],
     deploy: {
