@@ -65,7 +65,7 @@ module.exports = {
             // pm2 caches environment variables and --update-env doesn't seem to be working
             // Need to delete pm2 instance before starting instance again to update
             'post-deploy':
-                'npm install && npm run build && pm2 delete brobot && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
+                'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --env aws --update-env'
         }
     }
 };
