@@ -52,22 +52,24 @@ module.exports = {
             path: process.env.AWS_EC2_PATH,
             env: {
                 NODE_ENV: 'production',
-                PORT: process.env.PORT,
-                DOMAIN: process.env.DOMAIN,
-                TEST_SECRET: process.env.PROD_TEST_SECRET,
-                SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-                //
-                TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
-                TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
-                TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
-                //
-                MONGO_URI: process.env.PROD_MONGO_URI,
-                COOKIE_KEY: process.env.PROD_COOKIE_KEY
+                // update environment variables in /etc/environment
+                // pm2 aint cutting it
+                // PORT: process.env.PORT,
+                // DOMAIN: process.env.DOMAIN,
+                // TEST_SECRET: process.env.PROD_TEST_SECRET,
+                // SESSION_SECRET: process.env.PROD_SESSION_SECRET,
+                // //
+                // TWITCH_CLIENT_ID: process.env.PROD_TWITCH_CLIENT_ID,
+                // TWITCH_SECRET: process.env.PROD_TWITCH_SECRET,
+                // TWITCH_CALLBACK_URL: process.env.PROD_TWITCH_CALLBACK_URL,
+                // //
+                // MONGO_URI: process.env.PROD_MONGO_URI,
+                // COOKIE_KEY: process.env.PROD_COOKIE_KEY
             },
             // pm2 caches environment variables and --update-env doesn't seem to be working
             // Need to delete pm2 instance before starting instance again to update
             'post-deploy':
-                'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs'
+                'npm install && npm run build && pm2 startOrRestart ecosystem.config.cjs --update-env [--env aws]'
         }
     }
 };
