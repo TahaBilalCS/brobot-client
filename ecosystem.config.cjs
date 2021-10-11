@@ -13,13 +13,15 @@ module.exports = {
                 DOMAIN: process.env.DOMAIN,
                 TEST_SECRET: process.env.TEST_SECRET,
                 SESSION_SECRET: process.env.SESSION_SECRET,
-                //
+                // Same for both. We can't access some prod variables from localhost
                 TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.TWITCH_SECRET,
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
+                BROBOT_ACCESS_TOKEN: process.env.BROBOT_ACCESS_TOKEN,
+                BROBOT_REFRESH_TOKEN: process.env.BROBOT_REFRESH_TOKEN,
                 //
                 MONGO_URI: process.env.MONGO_URI,
-                COOKIE_KEY: process.env.PROD_COOKIE_KEY
+                COOKIE_KEY: process.env.PROD_COOKIE_KEY,
             },
             // pm2 stop all to reload new environment variables
             env_production: {
@@ -28,10 +30,12 @@ module.exports = {
                 DOMAIN: process.env.DOMAIN,
                 TEST_SECRET: process.env.PROD_TEST_SECRET,
                 SESSION_SECRET: process.env.PROD_SESSION_SECRET,
-                // We can't access some prod variables from localhost
+                // Same for both. We can't access some prod variables from localhost
                 TWITCH_CLIENT_ID: process.env.TWITCH_CLIENT_ID,
                 TWITCH_SECRET: process.env.TWITCH_SECRET,
                 TWITCH_CALLBACK_URL: process.env.TWITCH_CALLBACK_URL,
+                BROBOT_ACCESS_TOKEN: process.env.BROBOT_ACCESS_TOKEN,
+                BROBOT_REFRESH_TOKEN: process.env.BROBOT_REFRESH_TOKEN,
                 //
                 MONGO_URI: process.env.PROD_MONGO_URI,
                 COOKIE_KEY: process.env.PROD_COOKIE_KEY

@@ -13,8 +13,6 @@ interface RequestWithBody extends Request {
 
 const router = Router();
 
-/** <--------------Login Routes--------------> */
-
 router.get('/', (req: Request, res: Response) => {
     if (req.session?.passport && req.session.passport.user) {
         // User authenticated
@@ -37,13 +35,16 @@ router.get('/', (req: Request, res: Response) => {
     }
 });
 
-/** Set route to start OAuth link, this is where you define scopes to request*/
+/** Set route to start OAuth link, this is where you define scopes to request -  'chat:read', 'chat:edit' for brobot */
 router.get('/auth/twitch', passport.authenticate('twitch', { scope: ['user_read'] }));
 
 /** Set route for OAuth redirect */
 router.get(
     '/auth/twitch/callback',
-    passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/fail' })
+    passport.authenticate('twitch', {
+        successRedirect: '/',
+        failureRedirect: '/fail'
+    })
 );
 
 /** Log out */

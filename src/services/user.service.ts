@@ -3,7 +3,7 @@
 import mongoose from 'mongoose';
 import { UserInterface } from '../models/User.js';
 
-const User = mongoose.model<UserInterface>('users');
+const User = mongoose.model<UserInterface>('user');
 
 export const getUsers = async (): Promise<any> => {
     return User.find({});

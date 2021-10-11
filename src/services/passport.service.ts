@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 import type { UserInterface } from '../models/User.js';
 
 export const init = (app: Application) => {
-    const User = mongoose.model<UserInterface>('users');
+    const User = mongoose.model<UserInterface>('user');
 
     const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
     const TWITCH_SECRET = process.env.TWITCH_SECRET;
@@ -67,14 +67,16 @@ export const init = (app: Application) => {
                 state: true
             },
             async (accessToken: any, refreshToken: any, profile: any, done: any) => {
-                // TODO do something with access/refresh token
-                // profile.accessToken = accessToken;
-                // profile.refreshToken = refreshToken;
+                // TODO do something with access/refresh token - Used in twurple
+                // console.log('ACCESS', accessToken);
+                // console.log('REFRESH', refreshToken);
+                // console.log('PROFILE', profile);
 
                 // Profile information stored in this response
                 const userProfile = profile.data[0];
 
-                const user = await User.findOne({ twitchID: userProfile.id });
+                const user = await User.findOne({ oauthID: userProfile.id });
+
                 // If user already exists
                 if (user) {
                     console.log(`Existing User Login: ${userProfile.display_name}`);

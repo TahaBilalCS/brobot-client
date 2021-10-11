@@ -7,6 +7,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 // Models before usage in Services and Routers
 import './models/User.js';
+import './models/Twurple.js';
 
 // Routers after Models
 import { router as loginRouter } from './routes/login.router.js'; // TODO need to figure out why we need .js
@@ -14,6 +15,7 @@ import { router as userRouter } from './routes/user.router.js';
 
 // Services after Models
 import * as passportService from './services/passport.service.js';
+import * as twurpleService from './services/twurple.service.js';
 
 const MONGO_URI = process.env.MONGO_URI;
 if (MONGO_URI) {
@@ -24,7 +26,6 @@ if (MONGO_URI) {
 const app: Express = express(); // Start express before middlewares
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-// const SESSION_SECRET = process.env.SESSION_SECRET || '';
 
 /**
  * Order matters
@@ -54,6 +55,7 @@ app.use(helmet());
 
 /** Service Init */
 passportService.init(app);
+twurpleService.init(); // TODO Not using top level await. Confirm what to do
 /** Routes Init */
 app.use(loginRouter);
 app.use(userRouter);

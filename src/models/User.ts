@@ -20,4 +20,4 @@ export const userSchema = new Schema<UserInterface>({
 
 // Don't want to export / require models for testing purposes
 // It might assume we are creating multiple mongoose instances when imported multiple times
-mongoose.model<UserInterface>('users', userSchema); // 2 arguments mean load into mongoose, 1 means load out like in passport.js
+mongoose.model<UserInterface>('user', userSchema); // 2 arguments mean load into mongoose, 1 means load out like in passport.js
