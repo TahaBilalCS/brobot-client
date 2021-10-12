@@ -12,10 +12,23 @@ export async function init(): Promise<any> {
     const Twurple = mongoose.model<TwurpleInterface>('twurple');
     const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID || '';
     const TWITCH_SECRET = process.env.TWITCH_SECRET || '';
-    const twurpleOptions: TwurpleInterface | null = await Twurple.findOne({}); // TODO query twurple data better
 
-    // If twurple setup options are found
-    if (twurpleOptions) {
+    let twurpleOptions: TwurpleInterface | null = await Twurple.findOne({}); // TODO query twurple data better
+    // If no options found
+    if (!twurpleOptions) {
+        console.log('Twurple Config Could Not Be Retreived From Database');
+        const newTwurpleConfig = {
+            accessToken: process.env.BROBOT_ACCESS_TOKEN,
+            refreshToken: process.env.BROBOT_REFRESH_TOKEN,
+            scope: ['chat:edit', 'chat:read', 'user_read'],
+            expiresIn: 0,
+            obtainmentTimestamp: 0
+        };
+        twurpleOptions = await new Twurple(newTwurpleConfig).save();
+        console.log('Created New Twurple Config', twurpleOptions.obtainmentTimestamp);
+    }
+
+    try {
         const tokenData: TwurpleInterface = {
             accessToken: twurpleOptions.accessToken,
             refreshToken: twurpleOptions.refreshToken,
@@ -23,13 +36,12 @@ export async function init(): Promise<any> {
             expiresIn: twurpleOptions.expiresIn,
             obtainmentTimestamp: twurpleOptions.obtainmentTimestamp
         };
-
         const authProvider = new RefreshingAuthProvider(
             {
                 clientId: TWITCH_CLIENT_ID,
                 clientSecret: TWITCH_SECRET,
                 onRefresh: async newTokenData => {
-                    console.log('UPDATE DB', newTokenData);
+                    console.log('UPDATE DB', newTokenData.obtainmentTimestamp);
                     // TODO, when updating MongooseError: Query was already executed: twurple.findOneAndUpdate({}
                     await Twurple.findOneAndUpdate({}, newTokenData, {}, (err, doc) => {
                         if (err) console.log('Error Update Twurple Options DB:\n', err);
@@ -42,24 +54,25 @@ export async function init(): Promise<any> {
 
         const chatClient = new ChatClient({ authProvider, channels: ['lebrotherbill'] });
 
+        console.log('Connecting to twurple client...');
         await chatClient.connect();
+        console.log('Connecting succeeded');
 
         chatClient.onMessage((channel, user, message) => {
             console.log('Message:', message);
             if (message === '!ping') {
-                chatClient.say(channel, 'Pong!');
+                chatClient.say(channel, 'pong!');
             } else if (message === '!dice') {
                 const diceRoll = Math.floor(Math.random() * 6) + 1;
                 chatClient.say(channel, `@${user} rolled a ${diceRoll}`);
             }
         });
-    } else {
-        // TODO Create twurple options (have to authenticate through passport b_robot) put in try catch before chatClient authprovider
-        console.log('Twurple Options Could Not Be Retreived From Database');
+    } catch (err) {
+        console.log('Error initializing Twurple');
     }
 }
 
-// https://id.twitch.tv/oauth2/authorize?client_id=v0fyagwzqvv0num859ec4cu7kiuhwc
-//     &redirect_uri=http://localhost:3000/auth/twitch/callback
+// https://id.twitch.tv/oauth2/authorize?client_id=
+// &redirect_uri=
 // &response_type=code
 // &scope=chat:read+chat:edit

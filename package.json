@@ -7,8 +7,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "npx jest --watch",
-    "dev": "concurrently \"tsc -w\" \"pm2 kill && pm2 startOrRestart ecosystem.config.cjs --env development --watch\"",
-    "prod": "concurrently \"tsc -w\" \"pm2 kill && pm2 startOrRestart ecosystem.config.cjs --env production --watch\"",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q -r dotenv/config  dist/index.js\"",
     "deploy": "pm2 deploy ecosystem.config.cjs production",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No script just yet\"",
@@ -55,6 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",

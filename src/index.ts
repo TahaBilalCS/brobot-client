@@ -18,10 +18,20 @@ import * as passportService from './services/passport.service.js';
 import * as twurpleService from './services/twurple.service.js';
 
 const MONGO_URI = process.env.MONGO_URI;
-if (MONGO_URI) {
-    console.log('Mongoose Connected: ', process.env.MONGO_URI);
-    void mongoose.connect(MONGO_URI);
-} // void or empty .then()
+await (async function mongooseConnect() {
+    if (MONGO_URI) {
+        try {
+            await mongoose.connect(MONGO_URI); // void or empty .then()
+            console.log('Mongoose Connected: ', process.env.MONGO_URI);
+        } catch (err) {
+            console.log('Mongoose Failed', err);
+        }
+    }
+})();
+
+console.log('NODE_ENV:', process.env.NODE);
+console.log('MONGO:', process.env.MONGO_URI);
+console.log('CID:', process.env.TWITCH_CLIENT_ID);
 
 const app: Express = express(); // Start express before middlewares
 
@@ -55,7 +65,11 @@ app.use(helmet());
 
 /** Service Init */
 passportService.init(app);
-twurpleService.init(); // TODO Not using top level await. Confirm what to do
+// TODO Probably shouldn't block app starting?
+await (async function twurpleInit() {
+    await twurpleService.init();
+})();
+
 /** Routes Init */
 app.use(loginRouter);
 app.use(userRouter);
