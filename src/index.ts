@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 // Models before usage in Services and Routers
 import './models/User.js';
 import './models/Twurple.js';
@@ -59,6 +61,11 @@ app.use(
         // secret: SESSION_SECRET
     })
 );
+//WS - Local public html, paste/package in dist folder
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+// const publicDirectoryPath = path.join(__dirname, '../dist/public');
+// app.use(express.static(publicDirectoryPath));
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());

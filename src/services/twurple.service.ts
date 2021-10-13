@@ -52,7 +52,7 @@ export async function init(): Promise<any> {
             tokenData
         );
 
-        const chatClient = new ChatClient({ authProvider, channels: ['lebrotherbill'] });
+        const chatClient = new ChatClient({ authProvider, channels: ['tramadc'] });
 
         console.log('Connecting to twurple client...');
         await chatClient.connect();

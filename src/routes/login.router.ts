@@ -18,7 +18,7 @@ router.get('/', (req: Request, res: Response) => {
         // User authenticated
         res.send(`
             <h1>SIGNED IN</h1>
-            NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, NODE:${process.env.TWITCH_CALLBACK_URL}, 
+            NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, NODE:${process.env.TWITCH_CALLBACK_URL},
             MONGO:${process.env.MONGO_URI}
             <a href='/api/logout'>Logout</a>
             <a href='/api/current_user'>Current User</a>
@@ -26,7 +26,7 @@ router.get('/', (req: Request, res: Response) => {
         `);
     } else {
         res.send(`
-        NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, NODE:${process.env.TWITCH_CALLBACK_URL}, 
+        NODE:${process.env.NODE_ENV}, ${process.env.TWITCH_CLIENT_ID}, NODE:${process.env.TWITCH_CALLBACK_URL},
         MONGO:${process.env.MONGO_URI}
         <a href='/auth/twitch'>Login</a>
         <a href='/api/current_user'>Current User</a>
