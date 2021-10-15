@@ -5,8 +5,8 @@ import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import enableWs from 'express-ws';
+
 // Models before usage in Services and Routers
 import './models/User.js';
 import './models/Twurple.js';
@@ -31,12 +31,13 @@ await (async function mongooseConnect() {
     }
 })();
 
-console.log('NODE_ENV:', process.env.NODE);
+console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('MONGO:', process.env.MONGO_URI);
 console.log('CID:', process.env.TWITCH_CLIENT_ID);
 
-const app: Express = express(); // Start express before middlewares
-
+const appBase: Express = express(); // Start express before middlewares
+const wsInstance = enableWs(appBase);
+let { app } = wsInstance;
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 /**
@@ -61,7 +62,9 @@ app.use(
         // secret: SESSION_SECRET
     })
 );
-//WS - Local public html, paste/package in dist folder
+//Local public html, paste/package in dist folder
+// import path, { dirname } from 'path';
+// import { fileURLToPath } from 'url';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 // const publicDirectoryPath = path.join(__dirname, '../dist/public');
@@ -74,7 +77,7 @@ app.use(helmet());
 passportService.init(app);
 // TODO Probably shouldn't block app starting?
 await (async function twurpleInit() {
-    await twurpleService.init();
+    await twurpleService.init(wsInstance);
 })();
 
 /** Routes Init */
