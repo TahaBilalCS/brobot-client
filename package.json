@@ -1,14 +1,13 @@
 {
-  "name": "brobot",
-  "version": "21.7.0",
-  "description": "Running on AWS EC2 instance for https and websocket server",
+  "name": "brobot-client",
+  "version": "21.10.0",
+  "description": "Listens to events emitted from websocket on AWS EC2 Express Typescript server.",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "npx jest --watch",
-    "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q -r dotenv/config  dist/index.js\"",
-    "deploy": "pm2 deploy ecosystem.config.cjs production",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q -r dotenv/config dist/index.js\"",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No script just yet\"",
     "prepare": "husky install",
@@ -17,41 +16,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TahaBilalCS/brobot.git"
+    "url": "git+https://github.com/TahaBilalCS/brobot-client.git"
   },
   "author": "Brother Bill",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TahaBilalCS/brobot/issues"
+    "url": "https://github.com/TahaBilalCS/brobot-client/issues"
   },
-  "homepage": "https://github.com/TahaBilalCS/brobot#readme",
+  "homepage": "https://github.com/TahaBilalCS/brobot-client#readme",
   "dependencies": {
-    "@twurple/auth": "^5.0.5",
-    "@twurple/chat": "^5.0.5",
-    "@twurple/eventsub": "^5.0.5",
-    "@types/express": "^4.17.13",
-    "@types/express-ws": "^3.0.1",
     "@types/node": "^16.3.3",
-    "cookie-session": "^1.4.0",
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-ws": "^5.0.2",
-    "helmet": "^4.6.0",
-    "mongoose": "^6.0.10",
-    "passport": "^0.4.1",
-    "passport-oauth": "^1.0.0",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "typescript": "^4.3.5",
     "ws": "^8.2.3"
   },
   "devDependencies": {
-    "@types/cookie-session": "^2.0.43",
-    "@types/cors": "^2.8.12",
     "@types/jest": "^26.0.24",
-    "@types/passport": "^1.0.7",
-    "@types/request": "^2.48.7",
     "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
