@@ -58,13 +58,17 @@ app.use(
         // secret: SESSION_SECRET
     })
 );
-//Local public html, paste/package in dist folder
-// import path, { dirname } from 'path';
-// import { fileURLToPath } from 'url';
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// const publicDirectoryPath = path.join(__dirname, '../dist/public');
-// app.use(express.static(publicDirectoryPath));
+
+/*
+ Local public html, paste/package in dist folder
+ import path, { dirname } from 'path';
+ import { fileURLToPath } from 'url';
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = dirname(__filename);
+ const publicDirectoryPath = path.join(__dirname, '../dist/public');
+ app.use(express.static(publicDirectoryPath));
+ */
+
 app.use(express.static('public'));
 app.use(cors());
 app.use(helmet());
