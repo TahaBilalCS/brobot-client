@@ -24,16 +24,12 @@ await (async function mongooseConnect() {
     if (MONGO_URI) {
         try {
             await mongoose.connect(MONGO_URI); // void or empty .then()
-            console.log('Mongoose Connected: ', process.env.MONGO_URI);
+            console.log('Mongoose Connected!');
         } catch (err) {
-            console.log('Mongoose Failed', err);
+            console.log('Mongoose Failed?!', err);
         }
     }
 })();
-
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('MONGO:', process.env.MONGO_URI);
-console.log('CID:', process.env.TWITCH_CLIENT_ID);
 
 const appBase: Express = express(); // Start express before middlewares
 const wsInstance = enableWs(appBase);
