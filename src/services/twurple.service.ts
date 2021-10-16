@@ -17,7 +17,8 @@ export async function init(wsInstance: Instance): Promise<any> {
     // Create a new WebSocket. TODO AS CLIENT: RAMA'S SIDE
     // var socket = new WebSocket('ws://echo.websocket.org');
 
-    wsInstance.app.ws('/echo', (ws, req) => {
+    console.log('Connect websocket');
+    wsInstance.app.ws('/', (ws, req) => {
         ws.on('message', msg => {
             ws.send('Sup loser');
             console.log('Sent:', 'Sup loser');
@@ -28,6 +29,7 @@ export async function init(wsInstance: Instance): Promise<any> {
         });
     });
 
+    console.log(wsInstance);
     // wsInstance.getWss().clients.forEach(client => {
     //     // if(client.name / ip === trama){
     //     //     client.send("Sup loser");
