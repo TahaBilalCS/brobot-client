@@ -29,7 +29,6 @@ export async function init(wsInstance: Instance): Promise<any> {
         });
     });
 
-    console.log(wsInstance);
     // wsInstance.getWss().clients.forEach(client => {
     //     // if(client.name / ip === trama){
     //     //     client.send("Sup loser");
@@ -78,7 +77,7 @@ export async function init(wsInstance: Instance): Promise<any> {
         const chatClient = new ChatClient({
             authProvider,
             isAlwaysMod: true, // https://twurple.js.org/reference/chat/interfaces/ChatClientOptions.html#isAlwaysMod
-            channels: ['lebrotherbill']
+            channels: ['tramadc']
         });
 
         // 100 per 30 seconds
@@ -94,16 +93,17 @@ export async function init(wsInstance: Instance): Promise<any> {
         // this is a toughy
         let startDate: number;
         chatClient.onMessage(async (channel, user, message, msg: PrivateMessage) => {
-            console.log(`Message: ${new Date().getTime() - startDate}`, message);
+            console.log(`Message: ${user}`, message);
             if (message === '!ping') {
-                startDate = new Date().getTime();
-                let x = [1, 2, 3, 4, 5];
-                for (const num of x) {
-                    await sleep(500);
-                    // MWMWMWMWMWMWMWMWMWMWMWMW
-                    console.log('LOG', new Date().getTime() - startDate);
-                    await chatClient.say(channel, `HO: ${new Date().getTime() - startDate}`); // check if differnt in 1080p)
-                }
+                // startDate = new Date().getTime();
+                // let x = [1, 2, 3, 4, 5];
+                // for (const num of x) {
+                //     await sleep(500);
+                //     // MWMWMWMWMWMWMWMWMWMWMWMW
+                //     console.log('LOG', new Date().getTime() - startDate);
+                //     await chatClient.say(channel, `HO: ${new Date().getTime() - startDate}`); // check if differnt in 1080p)
+                // }
+                await chatClient.say(channel, 'pong!');
             } else if (message === '!dice') {
                 const diceRoll = Math.floor(Math.random() * 6) + 1;
                 await chatClient.say(channel, `@${user} rolled a ${diceRoll}`);
