@@ -18,7 +18,7 @@ export async function init(wsInstance: Instance): Promise<any> {
     // var socket = new WebSocket('ws://echo.websocket.org');
 
     console.log('Connect websocket');
-    wsInstance.app.ws('/', (ws, req) => {
+    wsInstance.app.ws('/ashketchum', (ws, req) => {
         ws.on('message', msg => {
             ws.send('Sup loser');
             console.log('Sent:', 'Sup loser');
