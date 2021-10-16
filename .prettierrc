@@ -6,7 +6,7 @@
   "arrowParens": "avoid",
   "cursorOffset": -1,
   "endOfLine": "lf",
-  "printWidth": 120,
+  "printWidth": 140,
   "trailingComma": "none",
   "useTabs": false,
   "parser": "typescript"
