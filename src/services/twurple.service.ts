@@ -14,9 +14,6 @@ export async function init(wsInstance: Instance): Promise<any> {
     const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID || '';
     const TWITCH_SECRET = process.env.TWITCH_SECRET || '';
 
-    // Create a new WebSocket. TODO AS CLIENT: RAMA'S SIDE
-    // var socket = new WebSocket('ws://echo.websocket.org');
-
     console.log('Connect websocket');
     wsInstance.app.ws('/ashketchum', (ws, req) => {
         ws.on('message', msg => {
