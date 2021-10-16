@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+// Default configuration
 module.exports = {
     apps: [
         {
