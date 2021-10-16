@@ -3,6 +3,12 @@
 import * as userService from '../services/user.service.js';
 import { NextFunction } from 'express';
 
+/**
+ * Gets list of users
+ * @param req
+ * @param res
+ * @param next
+ */
 export const getUsers = async (req: Request, res: any, next: NextFunction) => {
     try {
         const users = await userService.getUsers();
@@ -13,6 +19,12 @@ export const getUsers = async (req: Request, res: any, next: NextFunction) => {
     }
 };
 
+/**
+ * Gets a user by id
+ * @param req
+ * @param res
+ * @param next
+ */
 export const getUser = async (req: any, res: any, next: NextFunction) => {
     try {
         const users = await userService.getUser(req.user.id);

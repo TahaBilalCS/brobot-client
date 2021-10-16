@@ -49,8 +49,6 @@ router.get(
 
 /** Log out */
 router.get('/api/logout', (req: any, res: Response) => {
-    // req.session.loggedIn = undefined;
-    // res.redirect('/');
     console.log('Logging out:', req.user?.displayName);
     req.logout();
     res.redirect('/');

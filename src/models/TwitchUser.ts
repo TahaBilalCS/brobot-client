@@ -17,4 +17,4 @@ export const TwitchUserSchema = new Schema<TwitchUserInterface>({
 
 // Don't want to export / require models for testing purposes
 // It might assume we are creating multiple mongoose instances when imported multiple times
-// mongoose.model<TwitchUserInterface>('users', twitchUserSchema);
+// Use mongoose.model<TwitchUserInterface>('users', twitchUserSchema);
