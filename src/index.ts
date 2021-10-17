@@ -1,41 +1,55 @@
 /* eslint-disable */
 import WebSocket from 'ws';
 import process from 'process';
-import { PythonShell } from 'python-shell';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { IncomingEvents, OutgoingEvents } from './types/EventsInterface.js';
+import { disableEnterKey } from './commands.js';
 
-const scriptPath = path.join(__dirname, '../src/py_commands/');
-console.log(scriptPath)
+// Connect to websocket and handle reconnecting
+const clientSocketConnect = () => {
+    // TODO turn into classes when activating commands, pass the incoming event & websocket into commands class
+    let brobotSocket: WebSocket | undefined;
+    try {
+        brobotSocket = new WebSocket(process.env.WS_URL || '');
+    } catch (err) {
+        console.log('Error Creating Websocket', err);
+    }
 
-function startPythonShell() {
-    // TODO
-    let options = {
-        pythonPath: 'C:\\Users\\Bilal\\AppData\\Local\\Programs\\Python\\Python39\\python',
-        scriptPath: scriptPath
-    };
-    PythonShell.run('disable_key.py', options, (err: any, results: any) => {
-        if (err) {
-            console.log('Err', err);
-        } else {
-            console.log('Success', results);
-        }
-    });
-}
+    // Websocket created
+    if (brobotSocket) {
+        // When websocket opened, notify server
+        brobotSocket.onopen = (event: WebSocket.Event) => {
+            console.log("Connected to Websocket")
+            brobotSocket?.send(OutgoingEvents.TRAMA_CONNECTED);
+        };
 
-startPythonShell();
+        // When socket receives message, run a command
+        brobotSocket.onmessage = (event: WebSocket.MessageEvent) => {
+            console.log('Received', event.data);
+            switch (event.data) {
+                case IncomingEvents.CHATBAN:
+                    disableEnterKey(brobotSocket);
+                    break;
+                default:
+                    console.log('Unknown command received from server', event.data);
+                    break;
+            }
+        };
 
-// console.log(process.env.WS_URL);
-//
-// const brobotSocket = new WebSocket(process.env.WS_URL || '');
-//
-// // Connection opened
-// brobotSocket.addEventListener('open', event => {
-//     brobotSocket.send('Hello Server!');
-// });
+        // When client socket closes, reconnect again
+        brobotSocket.onclose = (event: WebSocket.CloseEvent) => {
+            setTimeout(() => {
+                clientSocketConnect();
+            }, 5000);
 
-/**
- * if receive chatban-ws,
- */
+            console.log('Socket is closed. Reconnect will be attempted in 5 seconds', event.reason);
+        };
+
+        // When socket errors out, close then reconnect
+        brobotSocket.onerror = (event: WebSocket.ErrorEvent) => {
+            console.log('Websocket Emitted Error', event.message);
+            brobotSocket?.close()
+        };
+    }
+};
+
+clientSocketConnect();
