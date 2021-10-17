@@ -31,7 +31,6 @@ const clientSocketConnect = () => {
                     break;
                 default:
                     console.log('Unknown command received from server', event.data);
-                    break;
             }
         };
 
