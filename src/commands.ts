@@ -14,10 +14,10 @@ export const disableEnterKey = (brobotSocket:  WebSocket | undefined): void => {
     const options = {
         pythonPath: process.env.PYTHON_PATH,
         scriptPath: scriptPath,
-        args: ['300'] /** How long to disable Enter key? (seconds) */
+        args: ['10'] /** How long to disable Enter key? (seconds) */
     };
     PythonShell.run('chatban.py', options, (err?: PythonShellError, output?: any[]) => {
-        if (err) console.log("Error running chatban.py", err);
+        if (err) brobotSocket?.send('broke');
         brobotSocket?.send(OutgoingEvents.CHATBAN_COMPLETE);
     });
 }

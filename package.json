@@ -9,6 +9,7 @@
     "test": "npx jest --watch",
     "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon -q -r dotenv/config dist/index.js\"",
     "prod": "cross-env NODE_ENV=production concurrently \"tsc -w\" \"nodemon -q -r dotenv/config dist/index.js\"",
+    "start": "node -r dotenv/config dist/index.js",
     "compile": "tsc && node dist/index.js",
     "lint": "eslint . --ext .ts",
     "stage": "echo \"No script just yet\"",

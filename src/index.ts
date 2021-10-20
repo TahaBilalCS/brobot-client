@@ -19,6 +19,7 @@ const clientSocketConnect = () => {
         // When websocket opened, notify server
         brobotSocket.onopen = (event: WebSocket.Event) => {
             console.log("Connected to Websocket")
+            console.log(new Date().toLocaleString())
             brobotSocket?.send(OutgoingEvents.TRAMA_CONNECTED);
         };
 
@@ -41,6 +42,7 @@ const clientSocketConnect = () => {
             }, 5000);
 
             console.log('Socket is closed. Reconnect will be attempted in 5 seconds', event.reason);
+            console.log(new Date().toLocaleString())
         };
 
         // When socket errors out, close then reconnect
