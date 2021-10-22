@@ -16,19 +16,26 @@ const clientSocketConnect = () => {
 
     // Websocket created
     if (brobotSocket) {
+        setInterval(() => {
+            console.log('SENDING PING', new Date().toLocaleString());
+            brobotSocket?.send(OutgoingEvents.PING);
+        }, 1000 * 60 * 15);
         // When websocket opened, notify server
         brobotSocket.onopen = (event: WebSocket.Event) => {
-            console.log("Connected to Websocket")
-            console.log(new Date().toLocaleString())
+            console.log('Connected to Websocket', new Date().toLocaleString());
             brobotSocket?.send(OutgoingEvents.TRAMA_CONNECTED);
         };
 
         // When socket receives message, run a command
         brobotSocket.onmessage = (event: WebSocket.MessageEvent) => {
-            console.log('Received', event.data);
+            // console.log('Received', event.data);
             switch (event.data) {
                 case IncomingEvents.CHATBAN:
                     disableEnterKey(brobotSocket);
+                    console.log('Received Chatban Event', new Date().toLocaleString());
+                    break;
+                case IncomingEvents.PONG:
+                    console.log('RECEIVED PONG', new Date().toLocaleString());
                     break;
                 default:
                     console.log('Unknown command received from server', event.data);
@@ -42,13 +49,13 @@ const clientSocketConnect = () => {
             }, 5000);
 
             console.log('Socket is closed. Reconnect will be attempted in 5 seconds', event.reason);
-            console.log(new Date().toLocaleString())
+            console.log(new Date().toLocaleString());
         };
 
         // When socket errors out, close then reconnect
         brobotSocket.onerror = (event: WebSocket.ErrorEvent) => {
             console.log('Websocket Emitted Error', event.message);
-            brobotSocket?.close()
+            brobotSocket?.close();
         };
     }
 };
