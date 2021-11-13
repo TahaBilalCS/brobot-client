@@ -3,6 +3,7 @@ import WebSocket from 'ws';
 import process from 'process';
 import { IncomingEvents, OutgoingEvents } from './types/EventsInterface.js';
 import { disableEnterKey } from './commands.js';
+import { voiceBan } from './commands.js';
 
 // Connect to websocket and handle reconnecting
 const clientSocketConnect = () => {
@@ -33,6 +34,10 @@ const clientSocketConnect = () => {
                 case IncomingEvents.CHATBAN:
                     disableEnterKey(brobotSocket);
                     console.log('Received Chatban Event', new Date().toLocaleString());
+                    break;
+                case IncomingEvents.VOICEBAN:
+                    voiceBan(brobotSocket);
+                    console.log('Received Voiceban Event', new Date().toLocaleString());
                     break;
                 case IncomingEvents.PONG:
                     console.log('RECEIVED PONG', new Date().toLocaleString());
