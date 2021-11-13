@@ -10,7 +10,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const scriptPath = path.join(__dirname, '../src/py_commands/');
 
 // TODO this could be a class we initialize with brobotSocket so we don't have to pass it in to every function
-export const disableEnterKey = (brobotSocket:  WebSocket | undefined): void => {
+export const disableEnterKey = (brobotSocket: WebSocket | undefined): void => {
     const options = {
         pythonPath: process.env.PYTHON_PATH,
         scriptPath: scriptPath,
@@ -20,17 +20,16 @@ export const disableEnterKey = (brobotSocket:  WebSocket | undefined): void => {
         if (err) brobotSocket?.send('broke');
         brobotSocket?.send(OutgoingEvents.CHATBAN_COMPLETE);
     });
-}
+};
 
-export const voiceBan = (brobotSocket:  WebSocket | undefined): void => {
+export const voiceBan = (brobotSocket: WebSocket | undefined): void => {
     const options = {
         pythonPath: process.env.PYTHON_PATH,
         scriptPath: scriptPath,
         args: ['30'] /** How long to keep mic muted? (seconds) */
     };
     PythonShell.run('voiceban.py', options, (err?: PythonShellError, output?: any[]) => {
-        console.log("ERR", err)
         if (err) brobotSocket?.send('broke');
         brobotSocket?.send(OutgoingEvents.VOICEBAN_COMPLETE);
     });
-}
+};
