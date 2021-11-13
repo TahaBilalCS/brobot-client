@@ -26,7 +26,7 @@ export const voiceBan = (brobotSocket:  WebSocket | undefined): void => {
     const options = {
         pythonPath: process.env.PYTHON_PATH,
         scriptPath: scriptPath,
-        args: ['5'] /** How long to keep mic muted? (seconds) */
+        args: ['30'] /** How long to keep mic muted? (seconds) */
     };
     PythonShell.run('voiceban.py', options, (err?: PythonShellError, output?: any[]) => {
         console.log("ERR", err)
