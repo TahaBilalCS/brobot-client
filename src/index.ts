@@ -2,7 +2,7 @@
 import WebSocket from 'ws';
 import process from 'process';
 import { IncomingEvents, OutgoingEvents } from './types/EventsInterface.js';
-import { disableEnterKey } from './commands.js';
+import { disableEnterKey, pokeRoar } from './commands.js';
 import { voiceBan } from './commands.js';
 
 // Connect to websocket and handle reconnecting
@@ -43,7 +43,19 @@ const clientSocketConnect = () => {
                     console.log('RECEIVED PONG', new Date().toLocaleString());
                     break;
                 default:
-                    console.log('Unknown command received from server', event.data);
+                    // todo should stringify all events
+                    // If non standard string possibly sent
+                    if (typeof event.data === 'string') {
+                        const parsedEvent = JSON.parse(event.data);
+                        if (parsedEvent.event && parsedEvent.pokemonName) {
+                            console.log('Received', parsedEvent);
+                            pokeRoar(brobotSocket, parsedEvent.pokemonName);
+                        } else {
+                            console.log('Event did not contain correct data for pokemon roar', event.data);
+                        }
+                    } else {
+                        console.log('Unknown command received from server', event.data);
+                    }
             }
         };
 
