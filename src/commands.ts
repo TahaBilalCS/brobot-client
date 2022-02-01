@@ -1,10 +1,13 @@
 /* eslint-disable */
 import process from 'process';
-import { PythonShell, PythonShellError } from 'python-shell';
+import { PythonShellError } from 'python-shell';
+import shell from 'python-shell';
+const { PythonShell } = shell; // Todo Note: Should wait for iohook library to support Node 14+ to get rid of this syntax
+
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import WebSocket from 'ws';
-import { OutgoingEvents } from './types/EventsInterface.js';
+import { OutgoingEvents } from './interfaces/EventsInterface.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const scriptPath = path.join(__dirname, '../src/py_commands/');
