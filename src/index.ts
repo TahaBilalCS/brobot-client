@@ -1,5 +1,5 @@
 /* eslint-disable */
-import WebSocket from 'ws';
+import WebSocket, { ClientOptions } from 'ws';
 import process from 'process';
 import { IncomingEvents, OutgoingEvents } from './interfaces/EventsInterface.js';
 import { disableEnterKey, pokeRoar } from './commands.js';
@@ -16,7 +16,10 @@ const clientSocketConnect = () => {
         ad: false
     };
     try {
-        brobotSocket = new WebSocket(process.env.WS_URL || '');
+        const wsOptions: ClientOptions = {
+            headers: { token: process.env.WS_SECRET ?? '' }
+        };
+        brobotSocket = new WebSocket(process.env.WS_URL ?? '', wsOptions);
     } catch (err) {
         console.log('Error Creating Websocket', err);
     }
