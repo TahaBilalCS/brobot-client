@@ -56,8 +56,8 @@ class ClientSocketHandler {
                     }
                 });
 
-                // ctrl+alt+f6 - PREDICTION
-                ioHook.registerShortcut([29, 56, 64], (keys: any) => {
+                // ctrl+alt+f4 - PREDICTION
+                ioHook.registerShortcut([29, 56, 62], (keys: any) => {
                     // Avoid sending the same event repeatedly for 5 seconds
                     if (!this.timedOutShortcuts.prediction) {
                         this.timedOutShortcuts.prediction = true;
