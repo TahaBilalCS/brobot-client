@@ -85,9 +85,11 @@ class ClientSocketHandler {
             });
 
             // When client socket receives message, run a command
-            this.clientSocket.on('message', (event: WebSocket.MessageEvent) => {
-                // console.log('Received', event.data);
-                switch (event.data) {
+            // https://stackoverflow.com/questions/69485407/why-is-received-websocket-data-coming-out-as-a-buffer
+            this.clientSocket.on('message', (data: Buffer, isBinary) => {
+                const msg = isBinary ? data : data.toString();
+                // console.log('Msg', msg);
+                switch (msg) {
                     case IncomingEvents.CHATBAN:
                         disableEnterKey(this.clientSocket);
                         console.log('Received Chatban Event', new Date().toLocaleString());
@@ -99,16 +101,16 @@ class ClientSocketHandler {
                     default:
                         // todo should stringify all events
                         // If non standard string possibly sent
-                        if (typeof event.data === 'string') {
-                            const parsedEvent = JSON.parse(event.data) as IncomingPokemonEvent;
-                            if (parsedEvent.event === IncomingEvents.POKEMON_ROAR && parsedEvent.pokemonName) {
-                                console.log('Received Pokemon Roar:', parsedEvent);
-                                pokeRoar(this.clientSocket, parsedEvent.pokemonName);
+                        if (typeof msg === 'string') {
+                            const parsedMsg = JSON.parse(msg) as IncomingPokemonEvent;
+                            if (parsedMsg.event === IncomingEvents.POKEMON_ROAR && parsedMsg.pokemonName) {
+                                console.log('Received Pokemon Roar:', parsedMsg);
+                                pokeRoar(this.clientSocket, parsedMsg.pokemonName);
                             } else {
-                                console.log('Event did not contain correct data for pokemon roar', event.data);
+                                console.log('Event did not contain correct data for pokemon roar', msg);
                             }
                         } else {
-                            console.log('Unknown command received from server', event.data);
+                            console.log('Unknown command received from server', msg);
                         }
                 }
             });
@@ -119,14 +121,15 @@ class ClientSocketHandler {
             });
 
             // When client socket closes, reconnect again
-            this.clientSocket.on('close', (event: WebSocket.CloseEvent) => {
+            this.clientSocket.on('close', (code, data: Buffer) => {
+                const reason = data.toString();
                 if (this.pingTimeout) clearTimeout(this.pingTimeout);
 
                 ioHook.unregisterAllShortcuts(); // Unregister keyboard listeners
 
                 console.log(
                     'Socket is closed. Reconnect will be attempted in 5 seconds',
-                    event.reason,
+                    reason,
                     new Date().toLocaleString()
                 );
 
