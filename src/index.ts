@@ -2,19 +2,29 @@
 import WebSocket, { ClientOptions } from 'ws';
 import process from 'process';
 import { IncomingEvents, OutgoingEvents } from './interfaces/EventsInterface.js';
-import { disableEnterKey, pokeRoar, voiceBan } from './commands.js';
+import { disableEnterKey, voiceBan } from './commands.js';
 import ioHook from 'iohook';
-
-interface IncomingPokemonEvent {
-    event: IncomingEvents.POKEMON_ROAR;
-    pokemonName?: string;
-}
 
 /** Tracks if we need to prevent an event from triggering */
 interface TimedOutShortcuts {
     marker: boolean;
     prediction: boolean;
     ad: boolean;
+}
+
+interface WsEvent {
+    event: string;
+    data: any;
+}
+
+function getJsonStringFromWS(str: string): WsEvent | null {
+    let string;
+    try {
+        string = JSON.parse(str);
+        return string;
+    } catch (e) {
+        return null;
+    }
 }
 
 class ClientSocketHandler {
@@ -52,7 +62,8 @@ class ClientSocketHandler {
                         setTimeout(() => {
                             this.timedOutShortcuts.marker = false;
                         }, 3000);
-                        this.clientSocket?.send(OutgoingEvents.CREATE_MARKER);
+
+                        this.clientSocket?.send(JSON.stringify({ event: OutgoingEvents.CREATE_MARKER, data: null }));
                     }
                 });
 
@@ -64,7 +75,9 @@ class ClientSocketHandler {
                         setTimeout(() => {
                             this.timedOutShortcuts.prediction = false;
                         }, 3000);
-                        this.clientSocket?.send(OutgoingEvents.CREATE_PREDICTION);
+                        this.clientSocket?.send(
+                            JSON.stringify({ event: OutgoingEvents.CREATE_PREDICTION, data: null })
+                        );
                     }
                 });
 
@@ -76,7 +89,7 @@ class ClientSocketHandler {
                         setTimeout(() => {
                             this.timedOutShortcuts.ad = false;
                         }, 3000);
-                        this.clientSocket?.send(OutgoingEvents.PLAY_AD);
+                        this.clientSocket?.send(JSON.stringify({ event: OutgoingEvents.PLAY_AD, data: null }));
                     }
                 });
 
@@ -88,9 +101,21 @@ class ClientSocketHandler {
             // https://stackoverflow.com/questions/69485407/why-is-received-websocket-data-coming-out-as-a-buffer
             this.clientSocket.on('message', (data: Buffer, isBinary) => {
                 const msg = isBinary ? data : data.toString();
-                // console.log('Msg', msg);
-                switch (msg) {
+                if (typeof msg !== 'string') {
+                    console.error('Unknown command received from server', msg);
+                    return;
+                }
+                const event = getJsonStringFromWS(msg);
+
+                if (!event) {
+                    console.error('Not valid JSON', event);
+                    console.error('Msg', msg);
+                    return;
+                }
+                console.log('Msg', event);
+                switch (event.event) {
                     case IncomingEvents.CHATBAN:
+                        console.log('Chatban Received');
                         disableEnterKey(this.clientSocket);
                         console.log('Received Chatban Event', new Date().toLocaleString());
                         break;
@@ -99,24 +124,13 @@ class ClientSocketHandler {
                         console.log('Received Voiceban Event', new Date().toLocaleString());
                         break;
                     default:
-                        // todo should stringify all events
-                        // If non standard string possibly sent
-                        if (typeof msg === 'string') {
-                            const parsedMsg = JSON.parse(msg) as IncomingPokemonEvent;
-                            if (parsedMsg.event === IncomingEvents.POKEMON_ROAR && parsedMsg.pokemonName) {
-                                console.log('Received Pokemon Roar:', parsedMsg);
-                                pokeRoar(this.clientSocket, parsedMsg.pokemonName);
-                            } else {
-                                console.log('Event did not contain correct data for pokemon roar', msg);
-                            }
-                        } else {
-                            console.log('Unknown command received from server', msg);
-                        }
+                        console.log('Unknown command received from server', msg);
                 }
             });
 
             // pong is sent automatically on ping
             this.clientSocket.on('ping', () => {
+                // console.log('GOT PING, SEND PONG');
                 this.heartbeat(); // Clear and reset disconnect timer
             });
 

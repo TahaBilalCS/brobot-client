@@ -20,8 +20,13 @@ export const disableEnterKey = (brobotSocket: WebSocket | undefined): void => {
         args: ['300'] /** How long to disable Enter key? (seconds) */
     };
     PythonShell.run('chatban.py', options, (err?: PythonShellError, output?: any[]) => {
-        if (err) brobotSocket?.send('broke');
-        brobotSocket?.send(OutgoingEvents.CHATBAN_COMPLETE);
+        // todo sent ChabanComplete with error as data
+        if (err) {
+            console.log('ChatBan Err', err);
+            brobotSocket?.send(JSON.stringify({ event: OutgoingEvents.CHATBAN_COMPLETE, data: err }));
+        } else {
+            brobotSocket?.send(JSON.stringify({ event: OutgoingEvents.CHATBAN_COMPLETE, data: null }));
+        }
     });
 };
 
@@ -33,29 +38,39 @@ export const voiceBan = (brobotSocket: WebSocket | undefined): void => {
     };
     PythonShell.run('voiceban.py', options, (err?: PythonShellError, output?: any[]) => {
         if (err) {
-            console.log('err', err);
-            brobotSocket?.send('broke');
+            console.log('VoiceBan Err', err);
+            brobotSocket?.send(JSON.stringify({ event: OutgoingEvents.VOICEBAN_COMPLETE, data: err }));
+        } else {
+            brobotSocket?.send(JSON.stringify({ event: OutgoingEvents.VOICEBAN_COMPLETE, data: null }));
         }
-        brobotSocket?.send(OutgoingEvents.VOICEBAN_COMPLETE);
     });
 };
 
-export const pokeRoar = (brobotSocket: WebSocket | undefined, pokemonName: string): void => {
-    // Outliers that need to be fixed in order to play sound properly
-    if (pokemonName === 'Mr. Mime') {
-        pokemonName = 'MrMime';
-    } else if (pokemonName.toLowerCase().includes('farfetch')) {
-        pokemonName = 'farfetchd';
-    }
-    const options = {
-        pythonPath: process.env.PYTHON_PATH,
-        scriptPath: scriptPath,
-        args: [`${scriptPath}\\poke_sounds\\${pokemonName}.mp3`] /** Pokemon Name */
-    };
-    PythonShell.run('pokeRoar.py', options, (err?: PythonShellError, output?: any[]) => {
-        if (err) {
-            console.log('err', err);
-            brobotSocket?.send('broke');
-        }
-    });
-};
+// export const keyboardType = (): void => {
+//     const options = {
+//         pythonPath: process.env.PYTHON_PATH,
+//         scriptPath: scriptPath,
+//         args: ['Some long string']
+//     };
+//     console.log('test');
+//     PythonShell.run('test.py', options, (err?: PythonShellError, output?: any[]) => {
+//         if (err) {
+//             console.log('ERRR Err', err);
+//         } else {
+//             console.log('ALL GOOD?', err);
+//         }
+//     });
+//
+//     import keyboard
+//     import time
+//     import sys
+//     import random
+//     time.sleep(1)
+//     strg_args=sys.argv[1] # seconds
+//     for char in strg_args:
+//     keyboard.press_and_release(char)
+//     time.sleep(random.uniform(0, 0.7))
+//
+//     time.sleep(1)
+//     quit()
+// };
